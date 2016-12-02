@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/register"
+    android:background="@color/colorWhite">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="29"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:orientation="vertical">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.8"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.9"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Username"
+            android:id="@+id/textView2"
+            android:textSize="20sp"
+            android:textColor="@color/colorBlack"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3.1"
+            android:inputType="textPersonName"
+            android:hint="Enter Here"
+            android:textColorHint="@color/colorHint"
+            android:ems="10"
+            android:maxLength="10"
+            android:textSize="20sp"
+            android:id="@+id/editText4"
+            android:textColor="@color/colorBlack" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.9"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Password"
+            android:id="@+id/textView3"
+            android:textSize="20sp"
+            android:textColor="@color/colorBlack"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3.1"
+            android:inputType="textPassword"
+            android:hint="Enter Here"
+            android:ems="10"
+            android:maxLength="15"
+            android:textSize="20sp"
+            android:id="@+id/editText"
+            android:textColorHint="@color/colorHint"
+            android:textColor="@color/colorBlack"
+            tools:ignore="HardcodedText" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.9"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Retype Password"
+            android:id="@+id/textView4"
+            android:textSize="20sp"
+            android:textColor="@color/colorBlack"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3.1"
+            android:inputType="textPassword"
+            android:hint="Enter Here"
+            android:ems="10"
+            android:maxLength="15"
+            android:textSize="20sp"
+            android:id="@+id/editText2"
+            android:textColorHint="@color/colorHint"
+            android:textColor="@color/colorBlack"
+            tools:ignore="HardcodedText" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/date_of_birth"
+            android:id="@+id/textView6"
+            android:textSize="20sp"
+            android:textColor="@color/colorBlack"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:inputType="datetime"
+            android:freezesText="true"
+            android:textColor="@color/colorBlack"
+            android:id="@+id/editText3"
+            android:textColorHint="@color/colorHint"
+            android:hint="       /       /       "
+            android:layout_marginLeft="140dp"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/gender"
+            android:id="@+id/textView"
+            android:textSize="20sp"
+            android:textColor="@color/colorBlack"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="140dp">
+
+            <RadioButton
+                android:id="@+id/radioButton5"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:text="@string/female"
+                android:checked="false"
+                android:textSize="20sp"
+                android:layout_below="@+id/radioButton6"
+                android:textColor="@color/colorBlack"
+                tools:ignore="ObsoleteLayoutParam" />
+
+            <RadioButton
+                android:id="@+id/radioButton6"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:text="@string/male"
+                android:textSize="20sp"
+                android:checked="true"
+                android:layout_alignTop="@+id/radioGroup"
+                android:textColor="@color/colorBlack"
+                tools:ignore="ObsoleteLayoutParam" />
+       </RadioGroup>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.04"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SIGN UP"
+            android:id="@+id/singup"
+            android:layout_gravity="center_horizontal"
+            android:ems="100"
+            android:background="@color/colorBlack"
+            android:textColor="@color/colorWhite"/>
+
+    </LinearLayout>
+</LinearLayout>
