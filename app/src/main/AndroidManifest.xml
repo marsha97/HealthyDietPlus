@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.amelindasudarto.hdp.app" >
+    package="com.project.HDPTeam.hdp.app" >
+    
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -9,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
 
-        <activity android:name=".Splash"
+        <activity android:name="com.project.HDPTeam.hdp.app.SplashActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,7 +20,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Login"
+        <activity android:name="com.project.HDPTeam.hdp.app.LoginActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +29,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Register"
+        <activity android:name="com.project.HDPTeam.hdp.app.RegisterActivity"
             android:icon="@drawable/my_icon"
             android:label="My new title"
             android:theme="@style/Theme.AppCompat">
@@ -38,7 +40,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Konfirmasi">
+        <activity android:name="com.project.HDPTeam.hdp.app.Konfirmasi">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,7 +48,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Slider">
+        <activity android:name="com.project.HDPTeam.hdp.app.Slider">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
