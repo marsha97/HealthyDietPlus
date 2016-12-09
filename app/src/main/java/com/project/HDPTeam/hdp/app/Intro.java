@@ -1,4 +1,4 @@
-package com.example.amelindasudarto.hdp.app;
+package com.project.HDPTeam.hdp.app;
 
 /**
  * Created by Amelinda Sudarto on 28/11/2016.

@@ -1,4 +1,4 @@
-package com.example.amelindasudarto.hdp.app;
+package com.project.HDPTeam.hdp.app;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.amelindasudarto.hdp.app", appContext.getPackageName());
+        assertEquals("com.example.HDPTeam.hdp.app", appContext.getPackageName());
     }
 }

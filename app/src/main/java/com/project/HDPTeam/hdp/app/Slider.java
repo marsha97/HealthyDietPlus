@@ -1,4 +1,4 @@
-package com.example.amelindasudarto.hdp.app;
+package com.project.HDPTeam.hdp.app;
 
 import android.app.Activity;
 import android.content.Context;
@@ -125,7 +125,7 @@ public class Slider extends Activity {
 
     private void launchHomeScreen() {
         Intro.setIsFirstTimeLaunch(false);
-        startActivity(new Intent(Slider.this, Login.class));
+        startActivity(new Intent(Slider.this, LoginActivity.class));
         finish();
     }
 

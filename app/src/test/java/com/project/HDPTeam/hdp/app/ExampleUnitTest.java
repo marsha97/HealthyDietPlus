@@ -1,4 +1,4 @@
-package com.example.amelindasudarto.hdp.app;
+package com.project.HDPTeam.hdp.app;
 
 import org.junit.Test;
 

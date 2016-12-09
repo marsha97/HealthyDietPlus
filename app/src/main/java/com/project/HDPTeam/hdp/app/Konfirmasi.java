@@ -1,4 +1,4 @@
-package com.example.amelindasudarto.hdp.app;
+package com.project.HDPTeam.hdp.app;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -20,7 +20,7 @@ public class Konfirmasi extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent j = new Intent(Konfirmasi.this, Slider.class);
+                Intent j = new Intent(Konfirmasi.this, LoginActivity.class);
                 startActivity(j);
                 finish();
             }
