@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffff"
-    tools:context="com.example.amelindasudarto.hdp.app.Login">
+    tools:context="com.project.HDPTeam.hdp.app.LoginActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -49,6 +49,8 @@
             <EditText
                 android:layout_width="0dp"
                 android:id="@+id/inputUsername"
+                android:inputType="textPersonName"
+                android:maxLength="20"
                 android:layout_height="match_parent"
                 android:layout_weight="6.75"
                 android:textColor="@color/colorBlack"
