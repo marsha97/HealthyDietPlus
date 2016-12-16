@@ -1,6 +1,7 @@
 package com.project.HDPTeam.hdp.app;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,9 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -56,6 +60,8 @@ public class RegisterActivity extends AppCompatActivity implements
     private int mYear, mMonth, mDay;
     private String mGender = "";
     private String mDay2, mMonth2, mYear2; //tanggal yang diinputkan user
+    private ProgressBar mLoading;
+    private RelativeLayout mLoadingCont;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,10 +74,18 @@ public class RegisterActivity extends AppCompatActivity implements
         signupBtn = (Button) findViewById(R.id.register_button);
         mDisplay = (EditText) findViewById(R.id.displayName_editText);
         mRequestQueue = Volley.newRequestQueue(this);
-        signupBtn.setOnClickListener(new View.OnClickListener() {
 
+        mLoadingCont = (RelativeLayout) findViewById(R.id.loading_container);
+        mLoadingCont.setVisibility(View.INVISIBLE);
+
+        signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                mLoadingCont.setVisibility(View.VISIBLE);
+                mLoading = (ProgressBar) findViewById(R.id.loading_circle);
+                mLoading.setIndeterminate(true);
                 mStringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -106,13 +120,11 @@ public class RegisterActivity extends AppCompatActivity implements
                         volleyError.printStackTrace();
                         //Toast.makeText(getApplicationContext(),"Network error, please check your connection", Toast.LENGTH_SHORT).show();
                         new CheckConnection().createInternetAccessDialog(RegisterActivity.this);
-
-                        return;
                     }
                 }){
                     @Override
                     protected Map<String,String> getParams() throws AuthFailureError{
-                        Map<String,String> mParameters = new HashMap<String, String>();
+                        Map<String,String> mParameters = new HashMap<>();
                         mParameters.put("username", mUname.getText().toString());
                         mParameters.put("password", mPswd.getText().toString());
                         mParameters.put("rePass", mRetype.getText().toString());
@@ -126,6 +138,14 @@ public class RegisterActivity extends AppCompatActivity implements
                     }
                 };
                 mRequestQueue.add(mStringRequest);
+                mRequestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<String>() {
+                    @Override
+                    public void onRequestFinished(Request<String> request){
+                        if(mLoadingCont != null && mLoadingCont.isShown()){
+                            mLoadingCont.setVisibility(View.INVISIBLE);
+                        }
+                    }
+                });
             }
         });
 

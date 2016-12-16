@@ -1,5 +1,6 @@
 package com.project.HDPTeam.hdp.app;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
@@ -7,8 +8,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -34,6 +39,9 @@ public class LoginActivity extends AppCompatActivity{
         private final String URL = "http://192.168.0.102:80/hdplusdb/login.php";
         private StringRequest mStringRequest;
         private RequestQueue mRequestQueue;
+        private ProgressBar mLoading;
+        private TextView mLoadingText;
+        private RelativeLayout mLoadingCont;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +54,18 @@ public class LoginActivity extends AppCompatActivity{
             loginButton = (Button) findViewById(R.id.login_btn);
             signupLink = (Button) findViewById(R.id.register_btn);
 
-            mRequestQueue = Volley.newRequestQueue(this);
+            mLoadingCont = (RelativeLayout) findViewById(R.id.loading_container);
+            mLoadingCont.setVisibility(View.INVISIBLE);
 
+            mRequestQueue = Volley.newRequestQueue(this);
             loginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    mLoadingCont.setVisibility(View.VISIBLE);
+                    mLoading = (ProgressBar) findViewById(R.id.loading_circle);
+                    mLoading.setIndeterminate(true);
                     mStringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -79,19 +94,26 @@ public class LoginActivity extends AppCompatActivity{
                             volleyError.printStackTrace();
                             //Toast.makeText(getApplicationContext(),"Network error, please check your connection", Toast.LENGTH_SHORT).show();
                             new CheckConnection().createInternetAccessDialog(LoginActivity.this);
-                            return;
 
                         }
                     }){
                         @Override
                         protected Map<String,String> getParams() throws AuthFailureError {
-                            Map<String,String> mParameters = new HashMap<String, String>();
+                            Map<String,String> mParameters = new HashMap<>();
                             mParameters.put("username", mUname.getText().toString());
                             mParameters.put("password", mPassword.getText().toString());
                             return mParameters;
                         }
                     };
                     mRequestQueue.add(mStringRequest);
+                    mRequestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<String>() {
+                        @Override
+                        public void onRequestFinished(Request<String> request){
+                            if(mLoadingCont != null && mLoadingCont.isShown()){
+                               mLoadingCont.setVisibility(View.INVISIBLE);
+                            }
+                        }
+                    });
                 }
             });
 
