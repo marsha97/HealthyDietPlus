@@ -40,7 +40,6 @@ public class LoginActivity extends AppCompatActivity{
         private StringRequest mStringRequest;
         private RequestQueue mRequestQueue;
         private ProgressBar mLoading;
-        private TextView mLoadingText;
         private RelativeLayout mLoadingCont;
 
         @Override
