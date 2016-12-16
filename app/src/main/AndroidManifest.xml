@@ -3,6 +3,7 @@
     package="com.project.HDPTeam.hdp.app" >
     
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -21,7 +22,7 @@
         </activity>
 
         <activity android:name="com.project.HDPTeam.hdp.app.LoginActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,8 +32,8 @@
 
         <activity android:name="com.project.HDPTeam.hdp.app.RegisterActivity"
             android:icon="@drawable/my_icon"
-            android:label="My new title"
-            android:theme="@style/Theme.AppCompat">
+            android:label="Register"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

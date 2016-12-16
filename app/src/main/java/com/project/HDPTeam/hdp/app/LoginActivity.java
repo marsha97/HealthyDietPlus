@@ -1,6 +1,9 @@
 package com.project.HDPTeam.hdp.app;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,15 +22,16 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.ConnectException;
 import java.util.HashMap;
 import java.util.Map;
 
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity{
 
         private Button loginButton, signupLink;
         private EditText mUname, mPassword;
-        private final String URL = "http://192.168.43.104:80/hdplusdb/login.php";
+        private final String URL = "http://192.168.0.102:80/hdplusdb/login.php";
         private StringRequest mStringRequest;
         private RequestQueue mRequestQueue;
 
@@ -36,11 +40,11 @@ public class LoginActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_login);
 
-            mUname = (EditText) findViewById(R.id.inputUsername);
-            mPassword = (EditText) findViewById(R.id.inputPass);
+            mUname = (EditText) findViewById(R.id.username_editText);
+            mPassword = (EditText) findViewById(R.id.password_editText);
 
-            loginButton = (Button) findViewById(R.id.logInBtn);
-            signupLink = (Button) findViewById(R.id.pageRegBtn);
+            loginButton = (Button) findViewById(R.id.login_btn);
+            signupLink = (Button) findViewById(R.id.register_btn);
 
             mRequestQueue = Volley.newRequestQueue(this);
 
@@ -72,6 +76,10 @@ public class LoginActivity extends AppCompatActivity {
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
+                            volleyError.printStackTrace();
+                            //Toast.makeText(getApplicationContext(),"Network error, please check your connection", Toast.LENGTH_SHORT).show();
+                            new CheckConnection().createInternetAccessDialog(LoginActivity.this);
+                            return;
 
                         }
                     }){
