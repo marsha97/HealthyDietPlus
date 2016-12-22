@@ -72,7 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Here"
-            android:inputType="textPassword"
+            android:inputType="textPersonName"
             android:textColorHint="@color/colorHint"
             android:layout_below="@id/displayName_textView"/>
         <Button

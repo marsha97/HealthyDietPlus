@@ -3,6 +3,7 @@ package com.project.HDPTeam.hdp.app;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -80,6 +81,12 @@ public class LoginActivity extends AppCompatActivity{
                                     Toast.makeText(getApplicationContext(), mJsonObj.getString("errorUsername"), Toast.LENGTH_SHORT).show();
                                 }
                                 else if(mJsonObj.names().get(0).equals("success")){
+                                    SharedPreferences preferences = getSharedPreferences("LogIn", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = preferences.edit();
+                                    editor.putBoolean("LOGGED_IN", true);
+                                    editor.putString("USERNAME", mUname.getText().toString());
+                                    editor.commit();
+
                                     Intent intent = new Intent(LoginActivity.this, Slider.class);
                                     startActivity(intent);
                                 }

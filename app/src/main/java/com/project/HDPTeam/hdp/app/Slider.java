@@ -125,7 +125,7 @@ public class Slider extends Activity {
 
     private void launchHomeScreen() {
         Intro.setIsFirstTimeLaunch(false);
-        startActivity(new Intent(Slider.this, LoginActivity.class));
+        startActivity(new Intent(Slider.this, MainMenu.class));
         finish();
     }
 

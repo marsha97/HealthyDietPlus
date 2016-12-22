@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_update_physic"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.project.HDPTeam.hdp.app.UpdatePhysic">
+    <RelativeLayout
+        android:id="@+id/form_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp">
+        <TextView
+            android:id="@+id/weight_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Weight"
+            android:textSize="20sp"/>
+        <EditText
+            android:id="@+id/weight_editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/Hint"
+            android:maxLength="3"
+            android:textColorHint="@color/colorHint"
+            android:layout_below="@id/weight_textView"
+            android:inputType="number"/>
+        <TextView
+            android:id="@+id/height_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Height"
+            android:textSize="20sp"
+            android:layout_below="@id/weight_editText"/>
+        <EditText
+            android:id="@+id/height_editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/Hint"
+            android:maxLength="3"
+            android:textColorHint="@color/colorHint"
+            android:layout_below="@id/height_textView"
+            android:inputType="number"/>
+        <TextView
+            android:id="@+id/workout_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Work Out Intensity"
+            android:textSize="20sp"
+            android:layout_below="@id/height_editText"/>
+        <Spinner
+            android:id="@+id/workout_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/workout_textView">
+        </Spinner>
+        <Button
+            android:id="@+id/update_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/workout_spinner"/>
+        <RelativeLayout
+            android:id="@+id/loading_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/update_button"
+            android:layout_centerHorizontal="true">
+            <ProgressBar
+                android:id="@+id/loading_circle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Loading...Please wait"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/loading_circle"
+                android:id="@+id/loading_textView"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+</ScrollView>

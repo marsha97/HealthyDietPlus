@@ -44,4 +44,10 @@
     <string name="slide_5_tittle">DONE</string>
     <string name="connect_with_mi_band">CONNECT WITH MI BAND</string>
     <string name="nhalaman_yang_membantu_anda_untuk_melihat_inputan_terakhir_anda_mengenai_berat_ideal_anda">\nHalaman yang membantu anda untuk melihat inputan terakhir anda mengenai berat ideal anda.</string>
+
+    <string-array name="workout_intensity">
+        <item>Rarely</item>
+        <item>Frequently</item>
+        <item>Regularly</item>
+    </string-array>
 </resources>
