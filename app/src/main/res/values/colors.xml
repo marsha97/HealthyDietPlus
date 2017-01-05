@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#588c7e</color>
+    <color name="colorPrimaryDark">#96ceb4</color>
+    <color name="colorAccent">#F4A460</color>
+
+
+
+    <!--new    -->
+    <!--<color name="colorPrimary">#3F51B5</color>-->
+    <!--<color name="colorPrimaryDark">#303F9F</color>-->
+    <!--<color name="colorAccent">#FF4081</color>-->
     <color name="backgroundColor">#ffeca8</color>
     <color name="textColor">#000000</color>
     <color name="fontColor">#000000</color>
@@ -17,6 +24,13 @@
     <color name="bg_screen3">#3395ff</color>
     <color name="bg_screen4">#c873f4</color>
     <color name="bg_screen5">#ffd201</color>
+
+    <!--screen background 2-->
+    <color name="bg_screen11">#96ceb4</color>
+    <color name="bg_screen22">#ffeead</color>
+    <color name="bg_screen33">#ffcc5c</color>
+    <color name="bg_screen44">#ff6f69</color>
+    <color name="bg_screen55">#b8a9c9</color>
 
     <!--dot inactive color-->
     <color name="dot_dark_screen1">#d1395c</color>

@@ -1,47 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/splash"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.project.HDPTeam.hdp.app.Activities.SplashActivity"
-    android:background="@color/colorWhite">
+    android:id="@+id/slider2"
+    android:background="@color/bg_screen22">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:weightSum="29"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
         android:orientation="vertical">
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="6"/>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="11"
-            android:src="@drawable/logo1"
-            android:id="@+id/imageView"
-            tools:ignore="RtlHardcoded"
-            android:contentDescription="@string/logo_aplikasi" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="11"/>
-
+            android:layout_weight="2"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"
-            android:text="@string/copyright"
-            android:id="@+id/textView9"
-            android:textSize="12sp"
-            android:textColor="@color/textColor"
-            android:layout_gravity="center"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:text="LAST"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="15"
+            android:contentDescription="@string/last_describtion"
+            android:src="@drawable/last_fix"/>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
             android:textAlignment="center"
-            tools:ignore="RtlHardcoded" />
+            android:text="\nYou can Track Your Weight Here"/>
+
     </LinearLayout>
 </LinearLayout>

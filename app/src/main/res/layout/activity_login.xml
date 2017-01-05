@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffff"
-    tools:context="com.project.HDPTeam.hdp.app.LoginActivity"
+    tools:context="com.project.HDPTeam.hdp.app.Activities.LoginActivity"
     android:fillViewport="true">
     <RelativeLayout
         android:layout_width="match_parent"

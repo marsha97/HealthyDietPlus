@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="29"
-    android:background="@color/colorHint">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="29"
+                android:background="@color/colorHint"
+                tools:context="com.project.HDPTeam.hdp.app.Activities.MainMenu">
 
     <LinearLayout
         android:id="@+id/layoutDots"

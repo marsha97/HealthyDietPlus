@@ -1,53 +1,106 @@
 <resources>
-    <string name="app_name">HealthyDiet+</string>
-    <string name="you_have_been_registered">You have been registered !</string>
-    <string name="copyright">\@Copyright</string>
-    <string name="logo_aplikasi">logo aplikasi</string>
-    <string name="don_apos_t_have_an_account">Don\'t have an account?</string>
-    <string name="log_in">LOG IN</string>
-    <string name="p_a_s_s_w_o_r_d">P a s s w o r d</string>
-    <string name="sign_up">SIGN UP</string>
-    <string name="u_s_e_r_n_a_m_e">U s e r n a m e</string>
-    <string name="logo_aplikasi_login">logo aplikasi login</string>
-    <string name="user_menginputkan_usernamenya">user menginputkan usernamenya</string>
-    <string name="user_menginputkan_password_yang_telah_dibuat">user menginputkan password yang telah dibuat</string>
-    <string name="date_of_birth">Date of Birth</string>
-    <string name="female">Female</string>
-    <string name="gender">Gender</string>
-    <string name="male">Male</string>
-    <string name="copyright1">\u00A9 Copyright 2016</string>
-    <string name="Hint">Enter Here</string>
-    <string name="logIn">Log In</string>
-    <string name="register">Register</string>
+    <string name="app_name">Healthy Diet+</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_settings">Settings</string>
+    <string name="openDrawer">open_drawer</string>
+    <string name="closeDrawer">close_drawer</string>
 
-    //hamza
+    <!-- Navigation Drawer menu labels -->
+    <string name="nav_home">Home</string>
+    <string name="nav_tutorial">Tutorial</string>
+    <string name="nav_calcol">Calories Control</string>
+    <string name="nav_eatsched">Eating Schedule</string>
+    <string name="nav_notifications">Notifications</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_about_us">About Us</string>
 
-    <string name="next">NEXT</string>
-    <string name="skip">SKIP</string>
+    <!-- Toolbar titles when navigation menu item is selected -->
+    <string-array name="nav_item_activity_titles">
+        <item>Home</item>
+        <item>Tutorial</item>
+        <item>Calories Control</item>
+        <item>Eating Schedule</item>
+        <item>Notifications</item>
+        <item>Settings</item>
+    </string-array>
+    <string name="activity_title_about_us">About Us</string>
+    <string name="activity_title_privacy_policy">Privacy Policy</string>
+    <string name="action_love">Love</string>
+    <string name="login">Login</string>
+    <string name="signup">Signup</string>
+    <string name="password">Password</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_miss">Miss</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="prompt_username">Username</string>
+    <string name="gender">Gender</string>
+    <string name="weight">Weight</string>
+    <string name="height">Height</string>
+    <string name="skip">Skip</string>
     <string name="start">GOT IT</string>
+    <string name="Hint">Enter Here</string>
+    <string name="next">Next</string>
+    <string name="halaman_yang_membantu_anda_untuk_melihat_inputan_terakhir_anda_mengenai_berat_ideal_anda">\nPage that help you to see your last input about your weight.</string>
+    <string name="connect_with_mi_band">Connect With Mi Band</string>
+    <string name="copyright">Copyright</string>
+    <string name="logo_aplikasi">Logo aplikasi</string>
+    <string name="you_have_been_registered">You have been registered</string>
+    <string name="bod">Birth of Date</string>
+    <string name="prompt_displayname">Display Name</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="retype_password">Retype Password (optional)</string>
+    <string name="miband_describtion">logo miband</string>
+    <string name="last_describtion">logo last</string>
+    <string name="update_describtion">logo update</string>
+    <string name="eating_describtion">logo eating</string>
+    <string name="foodlist_describtion">logo foodlist</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_up">Sign up</string>
+    <string name="update">Update</string>
+    <string name="kg">Kg</string>
+    <string name="regulary">Regularly</string>
+    <string name="cm">Cm</string>
+    <string name="cal">Cal</string>
+    <string name="fat">Fat</string>
+    <string name="date">Date</string>
+    <string name="date1">dd/mm/yyyy</string>
+    <string name="workout">Workout Intensity</string>
+    <string name="ideal_weight">Ideal Weight</string>
+    <string name="ideal_calories">Ideal Calories</string>
+    <string name="ideal_fat">Ideal Fat</string>
+    <string name="calories_burned">Calories burned /day</string>
+    <string name="workout1">Workout</string>
+    <string name="loading">Loading...Please wait</string>
+    <string name="action_sign_in_short">Sign in</string>
 
-    <string name="slide_1_tittle">LOG IN</string>
-    <string name="slide_1_disc">login into your account</string>
+    <!--update-->
+    <string name="date_value">dd/mm/yy</string>
+    <string name="kg_update">Kg</string>
+    <string name="cal_update">Cal</string>
+    <string name="workout_value">Regularly</string>
+    <string name="fat_update">Fat</string>
+    <string name="lb_update">Lb</string>
+    <string name="cm_update">Cm</string>
+    <string name="inch_update">Inch</string>
+    <string name="feet_update">Feet</string>
+    <string name="calculate">Calculate</string>
+    <string name="show_schedule">Show Schedule</string>
 
-    <string name="slide_2_tittle">FIND THE PLACE</string>
-    <string name="slide_2_disc">find your destination restaurant</string>
-
-    <string name="slide_3_tittle">MAKE YOUR ORDER</string>
-    <string name="slide_3_disc">make order of your food or drink</string>
-
-    <string name="slide_4_tittle">ESTIMATE TIME</string>
-    <string name="slide_4_disc">estimate your time from your place to restaurant</string>
-
-    <string name="slide_5_tittle">DONE</string>
-    <string name="connect_with_mi_band">CONNECT WITH MI BAND</string>
-    <string name="nhalaman_yang_membantu_anda_untuk_melihat_inputan_terakhir_anda_mengenai_berat_ideal_anda">\nHalaman yang membantu anda untuk melihat inputan terakhir anda mengenai berat ideal anda.</string>
+    <string-array name="interpolators">
+        <item>Accelerate</item>
+        <item>Linear</item>
+        <item>AccelerateDecelerate</item>
+        <item>Decelerate</item>
+        <item>FastOutSlowIn</item>
+    </string-array>
 
     <string-array name="workout_intensity">
-        <item>Rarely</item>
-        <item>Frequently</item>
-        <item>Regularly</item>
+        <item>Not Active</item>
+        <item>1-3 in a week</item>
+        <item>3-5 in a week</item>
+        <item>6-7 in a week</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
