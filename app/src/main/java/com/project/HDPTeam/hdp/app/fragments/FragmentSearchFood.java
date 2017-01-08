@@ -2,16 +2,28 @@ package com.project.HDPTeam.hdp.app.fragments;
 
 
 import android.app.ProgressDialog;
-import com.project.HDPTeam.hdp.app.Divider.DividerItemDecoration;
+
+import com.project.HDPTeam.hdp.app.Activities.FoodSearchActivity;
+import com.project.HDPTeam.hdp.app.OtherClass.DividerItemDecoration;
 import android.os.Bundle;
+//import android.os.Parcelable;
+//import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+//import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,6 +31,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.project.HDPTeam.hdp.app.Activities.HealthyDietPlus;
+import com.project.HDPTeam.hdp.app.OtherClass.EndlessScroll;
 import com.project.HDPTeam.hdp.app.R;
 import com.project.HDPTeam.hdp.app.model.foodDatas;
 import com.project.HDPTeam.hdp.app.networks.CheckConnection;
@@ -38,21 +51,28 @@ import com.project.HDPTeam.hdp.app.model.foodData;
  * Use the {@link FragmentSearchFood#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentSearchFood extends Fragment {
+public class FragmentSearchFood extends Fragment{
     private static final String ARG_PARAM1 = "FOOD_NAME_FragmentSearchFood";
     private static final String ARG_PARAM2 = "param2";
     private ArrayList<String> listName = new ArrayList<>();
     private ArrayList<Long> listId = new ArrayList<>();
+    private static final String BUNDLE_RECYCLER_LAYOUT = "FragmentSearchFood.recycler.layout";
 
     private String foodName;
-    private String mParam2;
+    private int foodPage;
 
     private final String url = "http://192.168.0.111:80/hdplusdb/foodSearch.php";
 
     private ArrayList<foodData> listFoodData = new ArrayList<>();
+    private long mId;
+    private String foodQuery;
+    private ProgressDialog progressDialog;
+    private  int totalLoaded;
 
     private RecyclerView mRecyclerView;
     private foodAdapter mFoodAdapter;
+    private EndlessScroll scrollListener;
+    private LinearLayoutManager mLinearLayoutManager;
 
     public FragmentSearchFood() {
         // Required empty public constructor
@@ -79,17 +99,37 @@ public class FragmentSearchFood extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            foodName = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-        makeRequest();
+        foodPage = 0;
+        mLinearLayoutManager = new LinearLayoutManager(getActivity());
+        scrollListener = new EndlessScroll(mLinearLayoutManager
+        ){
+            @Override
+            public void onLoadMore(int page, int totalItem, RecyclerView view) {
+                Toast.makeText(getContext(), "scrollListener called", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HealthyDietPlus.getContext(), "onLoadMore called", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HealthyDietPlus.getContext(), "page: " + String.valueOf(page) + "; totalItem: "+totalItem, Toast.LENGTH_SHORT).show();
+                Toast.makeText(HealthyDietPlus.getContext(), "page : " + page, Toast.LENGTH_SHORT).show();
+                Toast.makeText(HealthyDietPlus.getContext(), "query : " + foodQuery, Toast.LENGTH_SHORT).show();
+                foodPage = page;
+                totalLoaded = totalItem;
+                makeRequest(foodQuery, page);
+            }
+        };
+
+        /*if (getArguments() != null) {
+            query = getArguments().getString(ARG_PARAM1);
+        }*/
+        setHasOptionsMenu(true);
     }
 
-    public void makeRequest(){
-        final ProgressDialog progressDialog = ProgressDialog.show(getContext(), "Loading Content", "Please Wait...", true, false);
+    public void makeRequest(String query, int offset){
+        if (foodPage == 0){
+            progressDialog = ProgressDialog.show(getContext(), "Loading Content", "Please Wait...", true, false);
+        }
+        Toast.makeText(HealthyDietPlus.getContext(), "makeRequest called", Toast.LENGTH_SHORT).show();
+
         RequestQueue mRequestQueue = Singleton.getIsntance().getRequestQueue();
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, getUrl(), new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, getUrl(query,offset), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 parseJSON(response);
@@ -120,12 +160,20 @@ public class FragmentSearchFood extends Fragment {
         }
         try {
             JSONObject mfoods = response.getJSONObject("foods");
+            if (mfoods.getString("total_results").equals("0")){
+                AlertFragment.createDialog("Food not Found!", "Oops...", getContext());
+            }
+
             JSONArray mfood = mfoods.getJSONArray("food");
 
             for (int i = 0; i < mfood.length(); i++){
                 JSONObject currFood = mfood.getJSONObject(i);
-               String mFoodName = currFood.getString("food_name");
-               long mId = currFood.getLong("food_id");
+                String mFoodName = currFood.getString("food_name");
+                if (currFood.getString("food_type").equals("Brand")){
+                    String mBrand = currFood.getString("brand_name");
+                    mFoodName += "\n" + "Brand: " + mBrand;
+                }
+                long mId = currFood.getLong("food_id");
                 listName.add(mFoodName);
                 listId.add(mId);
             }
@@ -135,39 +183,89 @@ public class FragmentSearchFood extends Fragment {
 
     }
 
-    public String getUrl (){
-        return url + "?food_name=" + foodName;
+    public String getUrl (String query, int offset){
+        return url + "?food_name=" + query + "&offset=" + offset;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Toast.makeText(HealthyDietPlus.getContext(), "onCreateView called", Toast.LENGTH_SHORT).show();
+
         View view = inflater.inflate(R.layout.fragment_search_food, container, false);
-
         mRecyclerView = (RecyclerView)view.findViewById(R.id.search_recycleView);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
-
+        mRecyclerView.addOnScrollListener(scrollListener);
+        ((FoodSearchActivity) getActivity()).setTitleBar("Food List");
         return view;
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        ((FoodSearchActivity) getActivity()).setTitleBar("Food List");
+
+    }
+    //nampilkan searchbar
+    @Override
+    public void onCreateOptionsMenu (Menu menu, MenuInflater inflater){
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.search, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.menu_item_search);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+
+            @Override
+            public boolean onQueryTextSubmit(final String query) {
+                Toast.makeText(getContext(), "onQueryTextSubmit called", Toast.LENGTH_SHORT).show();
+                Log.d("search", "QueryTextSubmit: " + query);
+                if (listName != null || listName.size() > 0){
+                    listName.clear();
+                    listId.clear();
+                }
+                foodQuery = query;
+                if (scrollListener != null) {scrollListener.resetState();}
+                makeRequest(query,0);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.d("search", "QueryTextChange: " + newText);
+                return false;
+            }
+        });
+    }
+
+
     private void updateUI(){
+        Toast.makeText(HealthyDietPlus.getContext(), "updateUI called", Toast.LENGTH_SHORT).show();
         mFoodAdapter = new foodAdapter(listFoodData);
        mRecyclerView.setAdapter(mFoodAdapter);
     }
 
-    private class foodSearchHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    private class foodSearchHolder extends RecyclerView.ViewHolder{
         public TextView foodItem;
         public foodSearchHolder(View itemView){
             super (itemView);
-            itemView.setOnClickListener(this);
             foodItem = (TextView) itemView;
         }
-
-        @Override
-        public void onClick(View view){
-            Toast.makeText(getContext(), foodItem.getText().toString(), Toast.LENGTH_SHORT).show();
+        public void onClickItem (final String foodName, final long id){
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Fragment foodInfo = FragmentDetailFood.newInstance(String.valueOf(id), foodName);
+                    FragmentManager manager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction transaction = manager.beginTransaction();
+                    transaction.replace(R.id.fragment_container, foodInfo);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            });
         }
 
     }
@@ -177,7 +275,6 @@ public class FragmentSearchFood extends Fragment {
         public foodAdapter (ArrayList<foodData> listData){
             listOfFood = listData;
         }
-
         @Override
         public foodSearchHolder onCreateViewHolder (ViewGroup parent, int viewType){
             LayoutInflater inflater = LayoutInflater.from(getActivity());
@@ -187,8 +284,17 @@ public class FragmentSearchFood extends Fragment {
 
         @Override
         public void onBindViewHolder(foodSearchHolder holder, int position) {
+            /*if (scrollListener.getIsLoading()){
+                position = totalLoaded;
+            }*/
+
+            Toast.makeText(HealthyDietPlus.getContext(), "bind position: " + position, Toast.LENGTH_SHORT).show();
+
             foodData food = listOfFood.get(position);
+            mId = food.getId();
+            foodName = food.getFoodName();
             holder.foodItem.setText(food.getFoodName());
+            holder.onClickItem(foodName,mId);
         }
 
         @Override
@@ -196,5 +302,21 @@ public class FragmentSearchFood extends Fragment {
             return listOfFood.size();
         }
     }
+
+    /*@Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState){
+        super.onViewStateRestored(savedInstanceState);
+
+        if (savedInstanceState != null){
+            Parcelable savedLayoutState = savedInstanceState.getParcelable(BUNDLE_RECYCLER_LAYOUT);
+            mRecyclerView.getLayoutManager().onRestoreInstanceState(savedLayoutState);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(BUNDLE_RECYCLER_LAYOUT, mRecyclerView.getLayoutManager().onSaveInstanceState());
+    }*/
 
 }

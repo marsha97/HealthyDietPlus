@@ -1,4 +1,4 @@
-package com.project.HDPTeam.hdp.app.Divider;
+package com.project.HDPTeam.hdp.app.OtherClass;
 
 import android.content.Context;
 import android.content.res.TypedArray;

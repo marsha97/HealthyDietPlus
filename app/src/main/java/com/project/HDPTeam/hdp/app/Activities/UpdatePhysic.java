@@ -63,7 +63,6 @@ public class UpdatePhysic extends AppCompatActivity implements AdapterView.OnIte
         SharedPreferences sharedPreferences = getSharedPreferences("LogIn", Context.MODE_PRIVATE);
         mUname = sharedPreferences.getString("USERNAME", "N/A");
         mRequestQueue = Singleton.getIsntance().getRequestQueue();
-
         mUpdate.setOnClickListener(this);
     }
     @Override

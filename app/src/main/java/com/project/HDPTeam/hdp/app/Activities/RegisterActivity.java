@@ -53,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity implements
     //EditText date ; //== date;
     private EditText mDisplay;
     private RequestQueue mRequestQueue;
-    private final String URL = "http://192.168.0.107:80/hdplusdb/register.php";
+    private final String URL = "http://192.168.0.111:80/hdplusdb/register.php";
     private StringRequest mStringRequest;
     private Button signupBtn;
     private Intro intro;

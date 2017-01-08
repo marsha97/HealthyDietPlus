@@ -2,12 +2,187 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="com.project.HDPTeam.hdp.app.fragments.FragmentDetailFood">
+             tools:context="com.project.HDPTeam.hdp.app.fragments.lastUpdateFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"/>
+        android:orientation="vertical"
+        android:weightSum="40">
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="3">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/serving_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Amount : "/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/serving_textView"
+                    android:id="@+id/servingValue_textView">
+                </TextView>
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+
+                    android:layout_toEndOf="@+id/servingValue_textView"
+                    android:id="@+id/servingUnit_spinner">
+                </Spinner>
+            </RelativeLayout>
+        </LinearLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="2">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/calories_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Calories : "/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/calories_textView"
+                    android:id="@+id/caloriesValue_textView">
+                </TextView>
+            </RelativeLayout>
+        </LinearLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="2">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/fat_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Fat : "/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/fat_textView"
+                    android:id="@+id/fatValue_textView">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/weightUnit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="g"
+                    android:paddingLeft="10dp"
+                    android:layout_toEndOf="@+id/fatValue_textView"/>
+            </RelativeLayout>
+        </LinearLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="2">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/carb_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Carbohydrate : "/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/carb_textView"
+                    android:id="@+id/carbValue_textView">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/carbUnit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="g"
+                    android:paddingLeft="10dp"
+                    android:layout_toEndOf="@+id/carbValue_textView"/>
+            </RelativeLayout>
+        </LinearLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="2">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/protein_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Protein : "/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/protein_textView"
+                    android:id="@+id/proteinValue_textView">
+                </TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="g"
+                    android:layout_alignParentTop="true"
+                    android:paddingLeft="10dp"
+                    android:layout_toEndOf="@+id/proteinValue_textView"
+                    android:id="@+id/proteinUnit_textView">
+                </TextView>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
 
 </FrameLayout>

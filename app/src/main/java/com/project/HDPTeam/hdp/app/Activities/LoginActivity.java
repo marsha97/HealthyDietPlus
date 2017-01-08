@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity{
 
         private Button loginButton, signupLink;
         private EditText mUname, mPassword;
-        private final String URL = "http://192.168.0.107:80/hdplusdb/login.php"; //baru bisa local,yang register juga
+        private final String URL = "http://192.168.0.111:80/hdplusdb/login.php"; //baru bisa local,yang register juga
         private StringRequest mStringRequest;
         private RequestQueue mRequestQueue;
         private ProgressBar mLoading;
