@@ -101,8 +101,7 @@ public class FragmentSearchFood extends Fragment{
         super.onCreate(savedInstanceState);
         foodPage = 0;
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
-        scrollListener = new EndlessScroll(mLinearLayoutManager
-        ){
+        scrollListener = new EndlessScroll(mLinearLayoutManager){
             @Override
             public void onLoadMore(int page, int totalItem, RecyclerView view) {
                 Toast.makeText(getContext(), "scrollListener called", Toast.LENGTH_SHORT).show();
@@ -123,9 +122,7 @@ public class FragmentSearchFood extends Fragment{
     }
 
     public void makeRequest(String query, int offset){
-        if (foodPage == 0){
-            progressDialog = ProgressDialog.show(getContext(), "Loading Content", "Please Wait...", true, false);
-        }
+        progressDialog = ProgressDialog.show(getContext(), "Loading Content", "Please Wait...", true, false);
         Toast.makeText(HealthyDietPlus.getContext(), "makeRequest called", Toast.LENGTH_SHORT).show();
 
         RequestQueue mRequestQueue = Singleton.getIsntance().getRequestQueue();
@@ -192,10 +189,21 @@ public class FragmentSearchFood extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Toast.makeText(HealthyDietPlus.getContext(), "onCreateView called", Toast.LENGTH_SHORT).show();
+        Toast.makeText(HealthyDietPlus.getContext(), "mLayoutManager == null : " + String.valueOf(mLinearLayoutManager == null), Toast.LENGTH_SHORT).show();
 
         View view = inflater.inflate(R.layout.fragment_search_food, container, false);
         mRecyclerView = (RecyclerView)view.findViewById(R.id.search_recycleView);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        if (mLinearLayoutManager == null){
+            Toast.makeText(HealthyDietPlus.getContext(), "mLinearLayout is not set", Toast.LENGTH_SHORT).show();
+
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            mLinearLayoutManager = new LinearLayoutManager(getActivity());
+        }
+        else {
+            Toast.makeText(HealthyDietPlus.getContext(), "mLinearLayout is set", Toast.LENGTH_SHORT).show();
+            mRecyclerView.setLayoutManager(mLinearLayoutManager);
+            mLinearLayoutManager = null;
+        }
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
         mRecyclerView.addOnScrollListener(scrollListener);
         ((FoodSearchActivity) getActivity()).setTitleBar("Food List");
@@ -244,6 +252,7 @@ public class FragmentSearchFood extends Fragment{
 
     private void updateUI(){
         Toast.makeText(HealthyDietPlus.getContext(), "updateUI called", Toast.LENGTH_SHORT).show();
+        mRecyclerView.scrollToPosition(totalLoaded);
         mFoodAdapter = new foodAdapter(listFoodData);
        mRecyclerView.setAdapter(mFoodAdapter);
     }
@@ -273,22 +282,22 @@ public class FragmentSearchFood extends Fragment{
     private class foodAdapter extends RecyclerView.Adapter<foodSearchHolder>{
         ArrayList<foodData> listOfFood;
         public foodAdapter (ArrayList<foodData> listData){
+            Toast.makeText(HealthyDietPlus.getContext(), "foodAdapter called", Toast.LENGTH_SHORT).show();
             listOfFood = listData;
         }
         @Override
         public foodSearchHolder onCreateViewHolder (ViewGroup parent, int viewType){
+           // Toast.makeText(HealthyDietPlus.getContext(), "onCreateViewHolder called", Toast.LENGTH_SHORT).show();
             LayoutInflater inflater = LayoutInflater.from(getActivity());
             View view = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
+            //Toast.makeText(HealthyDietPlus.getContext(), "Scrolled to: " + String.valueOf(totalLoaded), Toast.LENGTH_SHORT).show();
+
             return new foodSearchHolder(view);
         }
 
         @Override
         public void onBindViewHolder(foodSearchHolder holder, int position) {
-            /*if (scrollListener.getIsLoading()){
-                position = totalLoaded;
-            }*/
-
-            Toast.makeText(HealthyDietPlus.getContext(), "bind position: " + position, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(HealthyDietPlus.getContext(), "bind position: " + position, Toast.LENGTH_SHORT).show();
 
             foodData food = listOfFood.get(position);
             mId = food.getId();
