@@ -92,7 +92,7 @@ public class FragmentDetailFood extends Fragment implements AdapterView.OnItemSe
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, getUrl(query), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Toast.makeText(getContext(), "onResponse", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getContext(), "onResponse", Toast.LENGTH_SHORT).show();
                 parseJSON(response);
             }
 
@@ -169,7 +169,7 @@ public class FragmentDetailFood extends Fragment implements AdapterView.OnItemSe
                     mSpinner.setAdapter(spinnerServing);
                 }
             }
-            Toast.makeText(getContext(), String.valueOf(mServingData != null), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), String.valueOf(mServingData != null), Toast.LENGTH_SHORT).show();
             if (mServingArr != null){
                 mServingData = mServingArr.getJSONObject(spinnerPosition);
                 if (mServingData.getString("calories") != null)
@@ -203,12 +203,6 @@ public class FragmentDetailFood extends Fragment implements AdapterView.OnItemSe
     }
 
     @Override
-    public void onResume(){
-        super.onResume();
-        Toast.makeText(getContext(), "onResume", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //Toast.makeText(getContext(), "onCreateView", Toast.LENGTH_SHORT).show();
@@ -227,7 +221,7 @@ public class FragmentDetailFood extends Fragment implements AdapterView.OnItemSe
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(HealthyDietPlus.getContext(), "onItemSelected", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(HealthyDietPlus.getContext(), "onItemSelected", Toast.LENGTH_SHORT).show();
         spinnerPosition = position;
         if (position != 0)
             makeRequest(mId);
