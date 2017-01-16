@@ -38,7 +38,7 @@ public class UpdatePhysic extends AppCompatActivity implements AdapterView.OnIte
     private Spinner mSpinner;
     private Button mUpdate;
     private RelativeLayout mLoadingCont;
-    private final String URL = "http://192.168.0.107:80/hdplusdb/physic.php"; //baru bisa local,yang register juga
+    private final String URL = "http://healthydietplus.esy.es/hdplusdb/physic.php"; //baru bisa local,yang register juga
     private StringRequest mStringRequest;
     private RequestQueue mRequestQueue;
     private EditText mWeight, mHeight;

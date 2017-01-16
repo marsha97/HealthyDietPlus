@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.transition.Slide;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -35,7 +36,7 @@ public class LoginActivity extends AppCompatActivity{
 
         private Button loginButton, signupLink;
         private EditText mUname, mPassword;
-        private final String URL = "http://192.168.0.111:80/hdplusdb/login.php"; //baru bisa local,yang register juga
+        private final String URL = "http://healthydietplus.esy.es/hdplusdb/login.php"; //baru bisa local,yang register juga
         private StringRequest mStringRequest;
         private RequestQueue mRequestQueue;
         private ProgressBar mLoading;

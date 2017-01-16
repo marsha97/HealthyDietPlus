@@ -23,28 +23,28 @@ public class lastUpdateFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle SavedInstance){
+        View view = inflater.inflate(R.layout.fragment_last_update,container, false);
         layout = inflater.inflate(R.layout.fragment_last_update, container, false);
-        return layout;
-    }
-    @Override
-    public void onActivityCreated (Bundle bundle){
-        super.onActivityCreated(bundle);
-
-        weight = (TextView) getActivity().findViewById(R.id.lastWeightResult_textView);
-        mWeight = getArguments().getString("weight");
+        weight = (TextView) view.findViewById(R.id.lastWeightResult_textView);
         weight.setText(mWeight);
 
-        height = (TextView) getActivity().findViewById(R.id.lastHeightResult_textView);
-        mHeight = getArguments().getString("height");
+        height = (TextView) view.findViewById(R.id.lastHeightResult_textView);
         height.setText(mHeight);
 
-        date = (TextView) getActivity().findViewById(R.id.lastUpdateResult_textView);
-        mDate = getArguments().getString("lastUpdate");
+        date = (TextView)view.findViewById(R.id.lastUpdateResult_textView);
         date.setText(mDate);
 
-        intensity = (TextView) getActivity().findViewById(R.id.lastIntensityResult_textView);
-        mIntensity = getArguments().getString("intensity");
+        intensity = (TextView)view.findViewById(R.id.lastIntensityResult_textView);
         intensity.setText(mIntensity);
 
+        return view;
+    }
+    @Override
+    public void onCreate (Bundle bundle){
+        super.onCreate(bundle);
+        mWeight = getArguments().getString("weight");
+        mHeight = getArguments().getString("height");
+        mDate = getArguments().getString("lastUpdate");
+        mIntensity = getArguments().getString("intensity");
     }
 }

@@ -1,9 +1,8 @@
 package com.project.HDPTeam.hdp.app.Activities;
+
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.project.HDPTeam.hdp.app.R;
@@ -12,7 +11,7 @@ import com.project.HDPTeam.hdp.app.R;
  * Created by kali on 1/5/17.
  */
 
-public abstract class SingleFragmentActivity extends AppCompatActivity {
+public abstract class SingleFragmentReplaceActivity extends AppCompatActivity {
     protected abstract Fragment createFragment();
 
     @Override
@@ -26,17 +25,9 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
         if (fragment == null){
             fragment = createFragment();
             manager.beginTransaction()
-                    .add(R.id.fragment_container, fragment)
+                    .replace(R.id.fragment_container, fragment)
                     .commit();
         }
 
-    }
-
-    public void replaceFragments(Fragment fragment){
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction transaction = fm.beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
     }
 }

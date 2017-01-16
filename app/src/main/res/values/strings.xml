@@ -72,10 +72,10 @@
     <string name="workout1">Workout</string>
     <string name="loading">Loading...Please wait</string>
     <string name="action_sign_in_short">Sign in</string>
+    <string name="kg_update">Kg</string>
 
     <!--update-->
     <string name="date_value">dd/mm/yy</string>
-    <string name="kg_update">Kg</string>
     <string name="cal_update">Cal</string>
     <string name="workout_value">Regularly</string>
     <string name="fat_update">Fat</string>
@@ -85,6 +85,7 @@
     <string name="feet_update">Feet</string>
     <string name="calculate">Calculate</string>
     <string name="show_schedule">Show Schedule</string>
+
 
     <string-array name="interpolators">
         <item>Accelerate</item>
@@ -100,6 +101,13 @@
         <item>3-5 in a week</item>
         <item>6-7 in a week</item>
     </string-array>
+
+    <!--Food Info-->
+    <string name="g_food">G</string>
+    <string name="qty">Qty</string>
+    <string name="protein">Protein</string>
+    <string name="carbo">Carbohydrate</string>
+    <string name="calories">Calories</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -40,7 +40,7 @@ public class CountCaloriesActivity extends AppCompatActivity implements View.OnC
         mIdealWeight = (TextView) findViewById(R.id.idealWeightResult_textView);
         mIdealCal = (TextView) findViewById(R.id.idealCalResult_textView);
         final ProgressDialog progressDialog = ProgressDialog.show(CountCaloriesActivity.this, "Loading Content", "Please Wait...", true, false);
-        String showURL = "http://192.168.0.107:80/hdplusdb/showPhysic.php?username="+mUname;
+        String showURL = "http://healthydietplus.esy.es/hdplusdb/showPhysic.php?username="+mUname;
         mSchedule = (Button) findViewById(R.id.shcedule_button);
         mSchedule.setOnClickListener(this);
         mRequestQueue = Singleton.getIsntance().getRequestQueue();

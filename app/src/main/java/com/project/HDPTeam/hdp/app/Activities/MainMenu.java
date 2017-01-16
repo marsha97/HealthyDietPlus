@@ -12,7 +12,7 @@ import com.project.HDPTeam.hdp.app.R;
 
 public class MainMenu extends AppCompatActivity implements View.OnClickListener{
 
-    private ImageView mUpdate, mLast, mFood;
+    private ImageView mUpdate, mLast, mFood, mSchedule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,9 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
 
         mFood = (ImageView) findViewById(R.id.foodList_button);
         mFood.setOnClickListener(this);
+
+        mSchedule= (ImageView) findViewById(R.id.schedule_button);
+        mSchedule.setOnClickListener(this);
     }
 
     @Override
@@ -41,6 +44,10 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
         }
         else if (view == mFood){
             Intent intent = new Intent(this, FoodSearchActivity.class);
+            startActivity(intent);
+        }
+        else if (view == mSchedule){
+            Intent intent = new Intent(this, ManageSchedule.class);
             startActivity(intent);
         }
         //yang lain nanti...

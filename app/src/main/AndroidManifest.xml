@@ -66,6 +66,12 @@
             android:name=".Activities.FoodSearchActivity"
             android:label="@string/app_name">
         </activity>
+        <activity
+            android:name=".Activities.ManageSchedule"
+            android:label="@string/app_name">
+        </activity>
+        <activity android:name=".Activities.withDrawer">
+        </activity>
     </application>
 
 </manifest>

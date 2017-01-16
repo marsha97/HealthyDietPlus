@@ -4,11 +4,16 @@ package com.project.HDPTeam.hdp.app.fragments;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,9 +23,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.project.HDPTeam.hdp.app.Activities.FoodSearchActivity;
 import com.project.HDPTeam.hdp.app.Activities.HealthyDietPlus;
-import com.project.HDPTeam.hdp.app.Activities.SingleFragmentActivity;
+import com.project.HDPTeam.hdp.app.OtherClass.titleBar;
 import com.project.HDPTeam.hdp.app.R;
 import com.project.HDPTeam.hdp.app.networks.CheckConnection;
 import com.project.HDPTeam.hdp.app.networks.Singleton;
@@ -36,21 +40,31 @@ import org.json.JSONObject;
  * create an instance of this fragment.
  */
 public class FragmentDetailFood extends Fragment implements AdapterView.OnItemSelectedListener{
-    private final String url = "http://192.168.0.111:80/hdplusdb/foodDescription.php";
+    private final String url = "http://healthydietplus.esy.es/hdplusdb/foodDescription.php";
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "foodID_FragmentDetailFood";
     private static final String ARG_PARAM2 = "foodName_FragmentDetailFood";
+    private static final String ARG_PARAM3 = "layoutID_FragmentDetailFood";
+    private static final String ARG_PARAM4 = "currentCalories_FragmentDetailFood";
+    private static final String ARG_PARAM5 = "maxCalories_FragmentDetailFood";
 
     // TODO: Rename and change types of parameters
     private int spinnerPosition = -1;
+    private Integer layoutID;
     private Spinner mSpinner;
-    private TextView calories, protein, carb, fat, serve;
+    private TextView calories, protein, carb, fat, serve, title;
+    private EditText customServe;
+    private double customAmount;
     private String amount;
     private String[] foodNutrition = new String[4];
     private String foodName;
     private String mId;
+    private String caloriesVal, fatVal, proteinVal, carboVal;
     private ArrayAdapter<String> spinnerServing;
+    private Button addMenu;
+    private double maxCal, currentCal;
+    private Integer menuSize;
 
     public FragmentDetailFood() {
         // Required empty public constructor
@@ -65,11 +79,14 @@ public class FragmentDetailFood extends Fragment implements AdapterView.OnItemSe
      * @return A new instance of fragment FragmentDetailFood.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentDetailFood newInstance(String param1, String param2) {
+    public static FragmentDetailFood newInstance(String param1, String param2, int param3, double param4, double param5) {
         FragmentDetailFood fragment = new FragmentDetailFood();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
+        args.putInt(ARG_PARAM3, param3);
+        args.putDouble (ARG_PARAM4, param4);
+        args.putDouble(ARG_PARAM5,param5);
         fragment.setArguments(args);
         return fragment;
     }
@@ -80,6 +97,9 @@ public class FragmentDetailFood extends Fragment implements AdapterView.OnItemSe
         if (getArguments() != null) {
             mId= getArguments().getString(ARG_PARAM1);
             foodName = getArguments().getString(ARG_PARAM2);
+            layoutID = getArguments().getInt(ARG_PARAM3);
+            currentCal = getArguments().getDouble(ARG_PARAM4);
+            maxCal = getArguments().getDouble(ARG_PARAM5);
         }
         //mParam1 --> food_id
         makeRequest(mId);
@@ -108,13 +128,19 @@ public class FragmentDetailFood extends Fragment implements AdapterView.OnItemSe
 
             @Override
             public void onRequestFinished(Request<JSONObject> request){
-                //Toast.makeText(HealthyDietPlus.getContext(), "onRequestFinished", Toast.LENGTH_SHORT).show();
+                countAllData();
+                setText();
+                if (customServe == null){
+                    if (changetoDouble(amount) % 1 == 0){
+                        Double d = changetoDouble(amount);
+                        Integer i = d.intValue();
+                        serve.setText(String.valueOf(i));
+                    }
+                    else {
+                        serve.setText(amount);
+                    }
+                }
                 progressDialog.dismiss();
-                calories.setText(foodNutrition[0]);
-                fat.setText(foodNutrition[1]);
-                carb.setText(foodNutrition[2]);
-                protein.setText(foodNutrition[3]);
-                serve.setText(amount);
             }
         });
     }
@@ -138,10 +164,13 @@ public class FragmentDetailFood extends Fragment implements AdapterView.OnItemSe
                 mServingObj = mServings.getJSONObject("serving");
             }
             //Toast.makeText(getContext(), String.valueOf(mServingArr != null), Toast.LENGTH_SHORT).show();
+            //inisialisasi spinner
             if (spinnerPosition == -1){
                 spinnerPosition = 0;
                 if (mServingArr != null){
                     servingLength = mServingArr.length();
+                    mServingData = mServingArr.getJSONObject(0);
+                    amount = mServingData.getString("number_of_units");
                 }
                 else{
                     servingLength = 1;
@@ -151,46 +180,55 @@ public class FragmentDetailFood extends Fragment implements AdapterView.OnItemSe
                     if (mServingArr != null){
                         mServingData = mServingArr.getJSONObject(i);
                         spinnerItem[i] = mServingData.getString("measurement_description");
-                        amount = "1";
                     }
                     else{
-                        spinnerItem[i] = "";
-                        amount = mServingObj.getString("serving_description");
+                        String servingDesc =  mServingObj.getString("measurement_description")+ " (" +mServingObj.getString("serving_description")+")";
+                        spinnerItem[i] = servingDesc;
+                        amount = mServingObj.getString("number_of_units");
                         break;
                     }
 
                 }
-                if (servingLength == 1){
-                    mSpinner.setVisibility(View.INVISIBLE);
-                }
-                else {
-                    spinnerServing = new ArrayAdapter<>(HealthyDietPlus.getContext(), R.layout.spinner_item, spinnerItem);
-                    spinnerServing.setDropDownViewResource(R.layout.spinner_dropdown);
-                    mSpinner.setAdapter(spinnerServing);
-                }
+                customAmount = changetoDouble(amount);
+                spinnerServing = new ArrayAdapter<>(HealthyDietPlus.getContext(), R.layout.spinner_item, spinnerItem);
+                spinnerServing.setDropDownViewResource(R.layout.spinner_dropdown);
+                mSpinner.setAdapter(spinnerServing);
             }
-            //Toast.makeText(getContext(), String.valueOf(mServingData != null), Toast.LENGTH_SHORT).show();
+            //ambil data dari input user
             if (mServingArr != null){
                 mServingData = mServingArr.getJSONObject(spinnerPosition);
-                if (mServingData.getString("calories") != null)
-                    foodNutrition[0] = mServingData.getString("calories");
-                if(mServingData.getString("fat") != null)
-                    foodNutrition[1] = mServingData.getString("fat");
-                if (mServingData.getString("carbohydrate")!=null)
-                    foodNutrition[2] = mServingData.getString("carbohydrate");
-                if (mServingData.getString("protein") != null)
-                    foodNutrition[3] = mServingData.getString("protein");
+                amount = mServingData.getString("number_of_units");
+            }
+            if (customServe != null){
+                if (customServe.getText().toString().equals("")){
+                    Double d = changetoDouble(amount);
+                    if (d % 1 == 0){
+                        customServe.setText(String.valueOf(d.intValue()));
+                    }
+                    else {
+                        customServe.setText(amount);
+                    }
+                }
+                customAmount = changetoDouble(customServe.getText().toString());
+            }
+            else {
+                customAmount = changetoDouble(amount);
+            }
+
+            if (mServingArr != null){
+                mServingData = mServingArr.getJSONObject(spinnerPosition);
+                caloriesVal = mServingData.getString("calories");
+                fatVal = mServingData.getString("fat");
+                carboVal = mServingData.getString("carbohydrate");
+                proteinVal = mServingData.getString("protein");
             }
             else{
-                if (mServingObj.getString("calories") != null)
-                    foodNutrition[0] = mServingObj.getString("calories");
-                if (mServingObj.getString("fat") != null)
-                     foodNutrition[1] = mServingObj.getString("fat");
-                if ( mServingObj.getString("carbohydrate") != null)
-                    foodNutrition[2] = mServingObj.getString("carbohydrate");
-                if ( mServingObj.getString("protein") != null)
-                    foodNutrition[3] = mServingObj.getString("protein");
+                caloriesVal = mServingObj.getString("calories");
+                fatVal = mServingObj.getString("fat");
+                carboVal = mServingObj.getString("carbohydrate");
+                proteinVal = mServingObj.getString("protein");
             }
+            Log.d("parsedJSON", "caloriesVal is : " + caloriesVal);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -198,6 +236,32 @@ public class FragmentDetailFood extends Fragment implements AdapterView.OnItemSe
 
     }
 
+    private void countAllData(){
+        foodNutrition[0] = String.valueOf(countNutrition(changetoDouble(caloriesVal)));
+        foodNutrition[1] = String.valueOf(countNutrition(changetoDouble(fatVal)));
+        foodNutrition[2] = String.valueOf(countNutrition(changetoDouble(carboVal)));
+        foodNutrition[3] = String.valueOf(countNutrition(changetoDouble(proteinVal)));
+    }
+
+    private void setText (){
+        calories.setText(foodNutrition[0]);
+        fat.setText(foodNutrition[1]);
+        carb.setText(foodNutrition[2]);
+        protein.setText(foodNutrition[3]);
+    }
+
+    private Double changetoDouble (String text){
+        Log.d("changetoDouble", "text is : " + text);
+
+        return Double.parseDouble(text);
+    }
+
+    private Double countNutrition (double nutrition){
+
+        Log.d("countNutrition", "customAmount is : " + String.valueOf(customAmount));
+
+        return Math.round(nutrition/changetoDouble(amount)*customAmount*100.0)/100.0;
+    }
     public String getUrl (String query){
         return url + "?food_id=" + query;
     }
@@ -207,29 +271,81 @@ public class FragmentDetailFood extends Fragment implements AdapterView.OnItemSe
                              Bundle savedInstanceState) {
         //Toast.makeText(getContext(), "onCreateView", Toast.LENGTH_SHORT).show();
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_detail_food, container, false);
+        View view = inflater.inflate(layoutID, container, false);
         mSpinner = (Spinner) view.findViewById(R.id.servingUnit_spinner);
         calories = (TextView) view.findViewById(R.id.caloriesValue_textView);
         protein = (TextView) view.findViewById(R.id.proteinValue_textView);
         carb = (TextView) view.findViewById(R.id.carbValue_textView);
         fat = (TextView) view.findViewById(R.id.fatValue_textView);
-        serve = (TextView) view.findViewById(R.id.servingValue_textView);
-        ((FoodSearchActivity) getActivity()).setTitleBar(foodName);
+        title = (TextView) view.findViewById(R.id.title);
+        if (layoutID == R.layout.detail_food_fragment_test) {
+            serve = (TextView) view.findViewById(R.id.servingValue_textView);
+        }
+        else if (layoutID == R.layout.set_food_schedule){
+            customServe = (EditText) view.findViewById(R.id.servingValue_editText);
+            addMenu = (Button) view.findViewById(R.id.addMenu_button);
+            customServe.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    String str = String.valueOf(s);
+                    if (!str.equals(""))
+                        customAmount = changetoDouble(str);
+
+                    else
+                        customAmount = 0.0;
+                    if ((caloriesVal != null) &&(fatVal!=null) && (carboVal != null) && (proteinVal != null)){
+                        countAllData();
+                    }
+                    setText();
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+            addMenu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    double newCal = currentCal + changetoDouble(foodNutrition[0]);
+                    Toast.makeText(getContext(),"currentCal = " + String.valueOf(currentCal), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"newCal = " + String.valueOf(newCal), Toast.LENGTH_SHORT).show();
+                    if (maxCal < newCal){
+                        AlertFragment.createDialog("Please eat less !!", "Too Much Calories", getContext());
+                    }
+                    else{
+                        // TODO tambah foodname, banyak kalorinya ke preference
+                        // TODO update current calories di preference
+                        double calories = changetoDouble(foodNutrition[0]);
+                        ((editPreferences) getActivity()).FromDetailFood(foodName, calories, newCal);
+                        AlertFragment.createDialog("List updated !", "Done!", getContext());
+                    }
+                }
+            });
+        }
+        title.setText(foodName);
+        ((titleBar.titleBarOperation) getActivity()).setTitleBar("Food Info");
         mSpinner.setOnItemSelectedListener(this);
         return view;
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-       // Toast.makeText(HealthyDietPlus.getContext(), "onItemSelected", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(HealthyDietPlus.getContext(), String.valueOf(spinnerPosition), Toast.LENGTH_SHORT).show();
         spinnerPosition = position;
-        if (position != 0)
-            makeRequest(mId);
+        makeRequest(mId);
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-
+    public interface editPreferences {
+       public void FromDetailFood(String foodName, double calories, double totalCal);
+    }
 }

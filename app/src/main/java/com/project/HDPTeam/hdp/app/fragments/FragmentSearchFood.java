@@ -32,6 +32,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.project.HDPTeam.hdp.app.Activities.HealthyDietPlus;
 import com.project.HDPTeam.hdp.app.OtherClass.EndlessScroll;
+import com.project.HDPTeam.hdp.app.OtherClass.titleBar;
 import com.project.HDPTeam.hdp.app.R;
 import com.project.HDPTeam.hdp.app.model.foodDatas;
 import com.project.HDPTeam.hdp.app.networks.CheckConnection;
@@ -62,14 +63,14 @@ public class FragmentSearchFood extends Fragment{
     private String foodName;
     private int foodPage;
 
-    private final String url = "http://192.168.0.111:80/hdplusdb/foodSearch.php";
+    private final String url = "http://healthydietplus.esy.es/hdplusdb/foodSearch.php";
 
     private ArrayList<foodData> listFoodData = new ArrayList<>();
     private long mId;
     private String foodQuery;
     private ProgressDialog progressDialog;
     private  int totalLoaded;
-
+    private int layoutID;
     private RecyclerView mRecyclerView;
     private foodAdapter mFoodAdapter;
     private EndlessScroll scrollListener;
@@ -83,15 +84,14 @@ public class FragmentSearchFood extends Fragment{
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
      * @param param2 Parameter 2.
      * @return A new instance of fragment FragmentSearchFood.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentSearchFood newInstance(String param1, String param2) {
+    public static FragmentSearchFood newInstance(int layoutID, String param2) {
         FragmentSearchFood fragment = new FragmentSearchFood();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+        args.putInt(ARG_PARAM1, layoutID);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
@@ -101,6 +101,9 @@ public class FragmentSearchFood extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         foodPage = 0;
+        if (getArguments() != null){
+            layoutID = getArguments().getInt(ARG_PARAM1);
+        }
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
         scrollListener = new EndlessScroll(mLinearLayoutManager){
             @Override
@@ -231,15 +234,8 @@ public class FragmentSearchFood extends Fragment{
         }
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
         mRecyclerView.addOnScrollListener(scrollListener);
-        ((FoodSearchActivity) getActivity()).setTitleBar("Food List");
+        ((titleBar.titleBarOperation) getActivity()).setTitleBar("Food List");
         return view;
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        ((FoodSearchActivity) getActivity()).setTitleBar("Food List");
-
     }
     //nampilkan searchbar
     @Override
@@ -253,13 +249,15 @@ public class FragmentSearchFood extends Fragment{
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
 
             @Override
-            public boolean onQueryTextSubmit(final String query) {
+            public boolean onQueryTextSubmit(String query) {
                 //Toast.makeText(getContext(), "onQueryTextSubmit called", Toast.LENGTH_SHORT).show();
                 Log.d("search", "QueryTextSubmit: " + query);
                 if (listName != null || listName.size() > 0){
                     listName.clear();
                     listId.clear();
                 }
+                query = query.replaceAll(" ", "%20");
+                Log.d("search", query);
                 foodQuery = query;
                 if (scrollListener != null) {scrollListener.resetState();}
                 makeRequest(query,0);
@@ -292,18 +290,16 @@ public class FragmentSearchFood extends Fragment{
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Fragment foodInfo = FragmentDetailFood.newInstance(String.valueOf(id), foodName);
-                    FragmentManager manager = getActivity().getSupportFragmentManager();
-                    FragmentTransaction transaction = manager.beginTransaction();
-                    transaction.replace(R.id.fragment_container, foodInfo);
-                    transaction.addToBackStack(null);
-                    transaction.commit();
+                    try {
+                        ((fragmentOperation) getActivity()).replaceFragment(String.valueOf(id), foodName, layoutID);
+                    }catch (ClassCastException cce){
+                        Toast.makeText(getContext(), "Class is not implemented", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         }
 
     }
-
     private class foodAdapter extends RecyclerView.Adapter<foodSearchHolder>{
         ArrayList<foodData> listOfFood;
         public foodAdapter (ArrayList<foodData> listData){
@@ -335,6 +331,10 @@ public class FragmentSearchFood extends Fragment{
         public int getItemCount() {
             return listOfFood.size();
         }
+    }
+
+    public interface fragmentOperation{
+        public void replaceFragment(String mId, String title, int layoutID);
     }
 
 }

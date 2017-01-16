@@ -26,8 +26,11 @@ import org.json.JSONObject;
 public class latestUpdateActivity extends FragmentActivity {
     private RequestQueue mRequestQueue;
     private String mUname, mLastDate, mIntensity;
-    private Double mWeight, mHeight;
+    private double mWeight, mHeight;
     private String[] intensities;
+    private int maxCalories;
+    private double idealWeight;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,7 @@ public class latestUpdateActivity extends FragmentActivity {
         mUname = sharedPreferences.getString("USERNAME", "N/A");
         intensities = getResources().getStringArray(R.array.workout_intensity);
 
-        String showURL = "http://192.168.0.107:80/hdplusdb/showLatest.php?username="+mUname;
+        String showURL = "http://healthydietplus.esy.es/hdplusdb/showLatest.php?username="+mUname;
 
         mRequestQueue = Singleton.getIsntance().getRequestQueue();
         final ProgressDialog progressDialog = ProgressDialog.show(latestUpdateActivity.this, "Loading Content", "Please Wait...", true, false);
@@ -52,6 +55,8 @@ public class latestUpdateActivity extends FragmentActivity {
                     mHeight = getLast.getDouble("height");
                     int position = getLast.getInt("workout");
                     mLastDate = getLast.getString("last_update");
+                    maxCalories = getLast.getInt("ideal_cal");
+                    idealWeight = getLast.getDouble("ideal_weight");
                     mIntensity = intensities[position];
 
                 } catch (JSONException e) {
@@ -71,10 +76,21 @@ public class latestUpdateActivity extends FragmentActivity {
             @Override
             public void onRequestFinished(Request<JSONObject> request){
                 progressDialog.dismiss();
-                makeLastFragment();
+                writeToPreferences();
+                if (!isFinishing())
+                    makeLastFragment();
             }
         });
 
+    }
+
+    public void writeToPreferences(){
+        SharedPreferences physicPref = getSharedPreferences("PhysicData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = physicPref.edit();
+        editor.putInt("maxCalories", maxCalories);
+        editor.putFloat("idealWeight", (float)idealWeight);
+        editor.putFloat("weight", (float)mWeight);
+        editor.commit();
     }
 
     public void makeLastFragment(){
@@ -88,6 +104,6 @@ public class latestUpdateActivity extends FragmentActivity {
         mLastUpdate.setArguments(bundle);
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
         fragmentTransaction.add(R.id.last_update, mLastUpdate, "countCalories");
-        fragmentTransaction.commit();
+        fragmentTransaction.commitAllowingStateLoss();
     }
 }
