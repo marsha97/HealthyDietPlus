@@ -98,7 +98,7 @@ public class latestUpdateActivity extends FragmentActivity {
         FragmentManager manager = getSupportFragmentManager();
         Bundle bundle = new Bundle();
         bundle.putString("weight", String.valueOf(mWeight));
-        bundle.putString("height", String.valueOf(mHeight));
+        bundle.putString("idealWeight", String.valueOf(idealWeight));
         bundle.putString("lastUpdate", mLastDate);
         bundle.putString("intensity", mIntensity);
         mLastUpdate.setArguments(bundle);

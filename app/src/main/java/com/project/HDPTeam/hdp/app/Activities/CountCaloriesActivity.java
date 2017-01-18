@@ -1,7 +1,9 @@
 package com.project.HDPTeam.hdp.app.Activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,7 +27,7 @@ import org.json.JSONObject;
 public class CountCaloriesActivity extends AppCompatActivity implements View.OnClickListener {
     private RequestQueue mRequestQueue;
     private TextView mIdealWeight, mIdealCal, mBurnedCal;
-    private double getIdealWeight, getIdealCal;
+    private Double getIdealWeight, getIdealCal;
     private String mUname;
     private Button mSchedule;
 
@@ -70,13 +72,21 @@ public class CountCaloriesActivity extends AppCompatActivity implements View.OnC
 
             @Override
             public void onRequestFinished(Request<JSONObject> request){
+                writeToPreferences();
                mBurnedCal.setText(String.valueOf(getIdealCal));
                mIdealCal.setText(String.valueOf(getIdealCal));
-               mIdealWeight.setText(String.valueOf(getIdealWeight));
+               mIdealWeight.setText(String.valueOf(getIdealWeight) + " kg");
                 progressDialog.dismiss();
             }
         });
 
+    }
+    public void writeToPreferences(){
+        SharedPreferences physicPref = getSharedPreferences("PhysicData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = physicPref.edit();
+        editor.putInt("maxCalories", getIdealCal.intValue());
+        editor.putString("idealWeight", String.valueOf(getIdealCal));
+        editor.commit();
     }
     @Override
     public void onClick(View view){

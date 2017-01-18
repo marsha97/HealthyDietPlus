@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity{
 
         private Button loginButton, signupLink;
         private EditText mUname, mPassword;
-        private final String URL = "http://healthydietplus.esy.es/hdplusdb/login.php"; //baru bisa local,yang register juga
+        private final String URL = "http://healthydietplus.esy.es/hdplusdb/login.php";
         private StringRequest mStringRequest;
         private RequestQueue mRequestQueue;
         private ProgressBar mLoading;
@@ -52,9 +52,6 @@ public class LoginActivity extends AppCompatActivity{
 
             loginButton = (Button) findViewById(R.id.login_btn);
             signupLink = (Button) findViewById(R.id.register_btn);
-
-            mLoadingCont = (RelativeLayout) findViewById(R.id.loading_container);
-            mLoadingCont.setVisibility(View.INVISIBLE);
 
             mRequestQueue = Singleton.getIsntance().getRequestQueue();
             loginButton.setOnClickListener(new View.OnClickListener() {
@@ -78,12 +75,14 @@ public class LoginActivity extends AppCompatActivity{
                                     Toast.makeText(getApplicationContext(), mJsonObj.getString("errorUsername"), Toast.LENGTH_SHORT).show();
                                 }
                                 else if(mJsonObj.names().get(0).equals("success")){
+                                    String display = mJsonObj.getString("display");
                                     SharedPreferences preferences = getSharedPreferences("LogIn", Context.MODE_PRIVATE);
                                     SharedPreferences.Editor editor = preferences.edit();
                                     editor.putBoolean("LOGGED_IN", true);
                                     editor.putString("USERNAME", mUname.getText().toString());
+                                    editor.putString("DISPLAY_NAME", display);
                                     editor.commit();
-
+                                    Toast.makeText(LoginActivity.this, display, Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(LoginActivity.this, Slider.class);
                                     startActivity(intent);
                                 }
@@ -128,4 +127,11 @@ public class LoginActivity extends AppCompatActivity{
                 }
             });
         }
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 }

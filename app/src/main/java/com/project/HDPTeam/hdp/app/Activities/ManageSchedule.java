@@ -1,7 +1,10 @@
 package com.project.HDPTeam.hdp.app.Activities;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -14,6 +17,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.project.HDPTeam.hdp.app.OtherClass.titleBar;
 import com.project.HDPTeam.hdp.app.R;
+import com.project.HDPTeam.hdp.app.Receivers.AlarmReceiver;
+import com.project.HDPTeam.hdp.app.Services.alarmReceiver;
 import com.project.HDPTeam.hdp.app.fragments.AlertFragment;
 import com.project.HDPTeam.hdp.app.fragments.EatingMenuFragment;
 import com.project.HDPTeam.hdp.app.fragments.FragmentDetailFood;
@@ -26,6 +31,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 /**
@@ -259,10 +265,37 @@ public class ManageSchedule extends SingleFragmentActivity implements Schedule.F
         SharedPreferences sharedPreferences  = getSharedPreferences(choosenMenuTime, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor  = sharedPreferences.edit();
         editor.putString(choosenMenuTime+"Time", time);
+        editor.putInt(choosenMenuTime+"Hour", hour);
+        editor.putInt(choosenMenuTime+ "Minute", minute);
         editor.commit();
     }
     public String getTime(){
         SharedPreferences timePreference = getSharedPreferences(choosenMenuTime, Context.MODE_PRIVATE);
         return timePreference.getString(choosenMenuTime+"Time", "Set Eating Time");
+    }
+
+    public void makeAlarm(int hourOfDay, int minute) {
+        Calendar c =  Calendar.getInstance();
+        //c.setTimeInMillis(System.currentTimeMillis());
+        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        c.set(Calendar.MINUTE,minute);
+        int requestCode = -1;
+        PendingIntent pendingIntent = null;
+        AlarmManager alarmManager = (AlarmManager)this.getSystemService(ALARM_SERVICE);
+        Intent intent = new Intent(ManageSchedule.this, alarmReceiver.class);
+        switch (choosenMenuTime){
+            case "Breakfast" : requestCode = 0; break;
+            case "Morning Snack" : requestCode = 1; break;
+            case "Lunch" : requestCode = 2; break;
+            case "Afternoon Snack" : requestCode = 3; break;
+            case "Dinner" : requestCode = 4; break;
+            case "Evening Snack" : requestCode = 5; break;
+        }
+        if (requestCode != -1){
+            pendingIntent = PendingIntent.getService(ManageSchedule.this,requestCode,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        }
+        if (pendingIntent != null) {
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), 1000*60*60*24, pendingIntent);
+        }
     }
 }

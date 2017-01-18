@@ -109,6 +109,16 @@
     <string name="carbo">Carbohydrate</string>
     <string name="calories">Calories</string>
 
+    <!--Navbar Item-->
+    <string name="tutorial">Tutorial</string>
+    <string name="foodList">Food List</string>
+    <string name="calCtrl">Calories Control</string>
+    <string name="notification">Notification</string>
+    <string name="setting">Settings</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_nav_drawer">Navigation</string>
+
+    <string name="action_settings">Settings</string>
 </resources>

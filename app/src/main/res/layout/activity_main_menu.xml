@@ -9,7 +9,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.project.HDPTeam.hdp.app.Activities.MainMenu">
+    tools:context="com.project.HDPTeam.hdp.app.Activities.MainMenu"
+    tools:showIn="@layout/main_menu_nav_drawer">
 
     <!--android.support.design.widget.AppBarLayout
        android:layout_width="match_parent"
@@ -33,11 +34,8 @@
         android:layout_height="80dp"
         android:weightSum="22"
         android:orientation="horizontal"
+        android:gravity="center_horizontal"
         android:layout_centerInParent="true">
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1.5"/>
 
         <ImageView
             android:layout_width="0dp"
@@ -63,79 +61,58 @@
             android:layout_height="match_parent"
             android:layout_weight="1"/>
 
+
         <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
-            android:src="@drawable/foodlist_fix"
-            android:id="@+id/foodList_button"/>
+            android:src="@drawable/eating_schedule"
+            android:id="@+id/schedule_button"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:weightSum="22"
+        android:layout_below="@+id/menu_picture"
+        android:layout_alignParentStart="true">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Update"
+            android:layout_weight="4"
+            android:paddingTop="10dp"
+            android:textAlignment="center"
+            android:id="@+id/textView"/>
+
         <Space
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:src="@drawable/schedule"
-            android:id="@+id/schedule_button"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_below="@id/menu_picture"
-        android:orientation="horizontal"
-        android:weightSum="22">
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:text="Update"
-            android:paddingTop="10dp"
-            android:textAlignment="center"
-            android:layout_weight="3" />
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="Last"
+            android:layout_weight="4"
             android:paddingTop="10dp"
             android:textAlignment="center"
-            android:layout_weight="3"
             android:id="@+id/textView2" />
 
         <Space
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"/>
+            android:layout_weight="1"/>
         <TextView
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:text="Food List"
-            android:paddingTop="10dp"
-            android:textAlignment="center"
-            android:layout_weight="3" />
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
             android:text="Schedule"
             android:paddingTop="10dp"
-            android:textAlignment="center"
-            android:layout_weight="3" />
+            android:textAlignment="center"/>
     </LinearLayout>
 
     <!--LinearLayout

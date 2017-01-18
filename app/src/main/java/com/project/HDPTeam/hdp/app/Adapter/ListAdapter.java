@@ -18,13 +18,14 @@ import java.util.ArrayList;
  */
 
 public class ListAdapter extends BaseAdapter {
-    ArrayList<String> menu;
+    ArrayList<String> menu, caloriesList;
     int imageID;
     Context mContext;
     LayoutInflater mInflater;
 
-    public ListAdapter (Context context, ArrayList<String> menu, int imageID){
+    public ListAdapter (Context context, ArrayList<String> menu, ArrayList caloriesList,int imageID){
         this.menu = menu;
+        this.caloriesList = caloriesList;
         this.imageID = imageID;
         this.mContext = context;
         mInflater = LayoutInflater.from(mContext);
@@ -50,6 +51,9 @@ public class ListAdapter extends BaseAdapter {
         convertView = mInflater.inflate(R.layout.list_item, null);
         TextView itemMenu = (TextView)convertView.findViewById(R.id.textList);
         ImageView imageMenu = (ImageView)convertView.findViewById(R.id.imageList);
+        TextView calories = (TextView)convertView.findViewById(R.id.caloriesList);
+
+        calories.setText(caloriesList.get(position));
         itemMenu.setText(menu.get(position));
         imageMenu.setImageResource(imageID);
 

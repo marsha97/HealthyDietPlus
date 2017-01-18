@@ -95,27 +95,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <TextView
-                    android:id="@+id/lastHeight_textView"
+                    android:id="@+id/lastIdeal_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Last Height : "/>
+                    android:text="Last Ideal Weight : "/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text=""
                     android:layout_alignParentTop="true"
-                    android:layout_toEndOf="@+id/lastHeight_textView"
-                    android:id="@+id/lastHeightResult_textView">
+                    android:layout_toEndOf="@+id/lastIdeal_textView"
+                    android:id="@+id/lastIdealResult_textView">
                 </TextView>
 
                 <TextView
-                    android:id="@+id/heightUnit"
+                    android:id="@+id/idealWeightUnit"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="cm"
+                    android:text="kg"
                     android:paddingLeft="10dp"
-                    android:layout_toEndOf="@+id/lastHeightResult_textView"/>
+                    android:layout_toEndOf="@+id/lastIdealResult_textView"/>
             </RelativeLayout>
         </LinearLayout>
         <Space

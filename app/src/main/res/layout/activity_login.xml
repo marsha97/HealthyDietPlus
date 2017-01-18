@@ -1,89 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_login"
+    android:padding="30dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffff"
+    android:orientation="vertical"
+    android:weightSum="10"
     tools:context="com.project.HDPTeam.hdp.app.Activities.LoginActivity"
     android:fillViewport="true">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp">
-        <TextView
-            android:id="@+id/username_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Username"
-            android:textSize="20sp"/>
-        <EditText
-            android:id="@+id/username_editText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter Here"
-            android:textColorHint="@color/colorHint"
-            android:layout_below="@id/username_textView"
-            android:inputType="textPersonName"/>
-        <TextView
-            android:id="@+id/password_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="password"
-            android:textSize="20sp"
-            android:layout_below="@id/username_editText"/>
-        <EditText
-            android:id="@+id/password_editText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter Here"
-            android:inputType="textPassword"
-            android:textColorHint="@color/colorHint"
-            android:layout_below="@id/password_textView"/>
-        <Button
-            android:id="@+id/login_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Log In"
-            android:layout_below="@id/password_editText"
-            android:layout_centerHorizontal="true"/>
-        <TextView
-            android:id="@+id/dontHaveAcc_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Don't Have an account ?"
-            android:layout_below="@id/login_btn"
-            android:layout_centerHorizontal="true"/>
-        <Button
-            android:id="@+id/register_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Register"
-            android:layout_below="@id/dontHaveAcc_textView"
-            android:layout_centerHorizontal="true"/>
-        <RelativeLayout
-            android:id="@+id/loading_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/register_btn"
-            android:layout_centerHorizontal="true">
-            <ProgressBar
-                android:id="@+id/loading_circle"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"/>
+                android:layout_height="0dp"
+                android:layout_weight="3">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/logo1"/>
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
 
             <TextView
+                android:id="@+id/username_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Loading...Please wait"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/loading_circle"
-                android:id="@+id/loading_textView"/>
-        </RelativeLayout>
-    </RelativeLayout>
-</ScrollView>
+                android:text="Username"
+                android:textSize="20sp"/>
+            <EditText
+                android:id="@+id/username_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Here"
+                android:textColorHint="@color/colorHint"
+                android:layout_below="@id/username_textView"
+                android:inputType="textPersonName"/>
+            <TextView
+                android:id="@+id/password_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="password"
+                android:textSize="20sp"
+                android:layout_below="@id/username_editText"/>
+            <EditText
+                android:id="@+id/password_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Here"
+                android:inputType="textPassword"
+                android:textColorHint="@color/colorHint"/>
+            <Button
+                android:id="@+id/login_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Log In"
+                android:textColor="#fff"
+                android:layout_below="@id/password_editText"
+                android:backgroundTint="@color/bg_screen5"
+                android:layout_gravity="center_horizontal"/>
+            <TextView
+                android:id="@+id/dontHaveAcc_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Don't Have an account ?"
+                android:layout_below="@id/login_btn"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_horizontal"/>
+            <Button
+                android:id="@+id/register_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/green"
+                android:text="Register"
+                android:textColor="#fff"
+                android:layout_gravity="center_horizontal"/>
+</LinearLayout>

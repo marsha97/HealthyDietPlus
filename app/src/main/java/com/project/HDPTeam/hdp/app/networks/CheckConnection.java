@@ -11,7 +11,6 @@ import com.project.HDPTeam.hdp.app.fragments.AlertFragment;
  */
 
 public class CheckConnection {
-
     private boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);

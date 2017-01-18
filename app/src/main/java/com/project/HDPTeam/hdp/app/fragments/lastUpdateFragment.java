@@ -1,8 +1,5 @@
 package com.project.HDPTeam.hdp.app.fragments;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,15 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.android.volley.RequestQueue;
 import com.project.HDPTeam.hdp.app.R;
-
-import java.util.zip.Inflater;
 
 public class lastUpdateFragment extends Fragment {
     private View layout;
-    private String mWeight, mHeight, mDate, mIntensity;
-    private TextView weight, height, date, intensity;
+    private String mWeight, mIdeal, mDate, mIntensity;
+    private TextView weight, idealWeight, date, intensity;
     private String mUname;
 
     @Override
@@ -28,8 +22,8 @@ public class lastUpdateFragment extends Fragment {
         weight = (TextView) view.findViewById(R.id.lastWeightResult_textView);
         weight.setText(mWeight);
 
-        height = (TextView) view.findViewById(R.id.lastHeightResult_textView);
-        height.setText(mHeight);
+        idealWeight = (TextView) view.findViewById(R.id.lastIdealResult_textView);
+        idealWeight.setText(mIdeal);
 
         date = (TextView)view.findViewById(R.id.lastUpdateResult_textView);
         date.setText(mDate);
@@ -43,7 +37,7 @@ public class lastUpdateFragment extends Fragment {
     public void onCreate (Bundle bundle){
         super.onCreate(bundle);
         mWeight = getArguments().getString("weight");
-        mHeight = getArguments().getString("height");
+        mIdeal = getArguments().getString("idealWeight");
         mDate = getArguments().getString("lastUpdate");
         mIntensity = getArguments().getString("intensity");
     }

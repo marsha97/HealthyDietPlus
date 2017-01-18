@@ -12,7 +12,6 @@ public class Singleton {
 
     private static Singleton sInstance = null;
     private static RequestQueue mRequestQueue;
-
     public Singleton (){
         mRequestQueue = Volley.newRequestQueue(HealthyDietPlus.getContext());
     }

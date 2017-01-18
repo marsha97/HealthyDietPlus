@@ -11,6 +11,7 @@
         android:icon="@mipmap/ic_launcher2"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:largeHeap="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activities.SplashActivity"
@@ -23,7 +24,7 @@
         </activity>
         <activity
             android:name=".Activities.LoginActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -34,7 +35,7 @@
             android:name=".Activities.RegisterActivity"
             android:icon="@drawable/my_icon"
             android:label="Register"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".Activities.Konfirmasi">
             <intent-filter>
@@ -50,7 +51,10 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.MainMenu">
+        <activity
+            android:name=".Activities.MainMenu"
+            android:label="Main Menu"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
             android:name=".Activities.UpdatePhysic"
@@ -70,8 +74,19 @@
             android:name=".Activities.ManageSchedule"
             android:label="@string/app_name">
         </activity>
-        <activity android:name=".Activities.withDrawer">
+        <activity
+            android:name=".Activities.NavDrawerActivity"
+            android:label="@string/title_activity_nav_drawer"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity android:name=".Activities.NotificationActivity">
+        </activity>
+        <service android:name=".Services.alarmReceiver"></service>
+        <receiver android:name=".Receivers.AlarmReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.NOTIFY" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

@@ -40,7 +40,6 @@ public class EatingMenuFragment extends Fragment implements View.OnClickListener
     private Button foodListButton;
     private Button saveButton;
 
-    private String[] menu = {"test1", "test2", "test3"};
     private ArrayList<String> foodMenu, caloriesList;
 
     public EatingMenuFragment() {
@@ -105,17 +104,13 @@ public class EatingMenuFragment extends Fragment implements View.OnClickListener
             foodMenu = ((ManageSchedule) getActivity()).getFoodNames();
             caloriesList = ((ManageSchedule) getActivity()).getCalories();
             ListView listView = (ListView) view.findViewById(R.id.menuSchedule_listView);
-            final ListAdapter mAdapter = new ListAdapter(HealthyDietPlus.getContext(), foodMenu, R.drawable.ic_action_delete);
+            final ListAdapter mAdapter = new ListAdapter(HealthyDietPlus.getContext(), foodMenu, caloriesList,R.drawable.ic_action_delete);
             listView.setAdapter(mAdapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                       // TODO REMOVE menu and calories from shared preference
                     String removedCalories = caloriesList.get(position);
                     foodMenu.remove(position);
-                    for (int i = 0; i < foodMenu.size(); i++){
-                        Toast.makeText(getContext(), foodMenu.get(i), Toast.LENGTH_SHORT).show();
-                    }
                     caloriesList.remove(position);
                     ((ManageSchedule) getActivity()).updateCalories(caloriesList, Double.parseDouble(removedCalories),position);
                     ((ManageSchedule) getActivity()).updateMenu(foodMenu,position);
@@ -137,8 +132,18 @@ public class EatingMenuFragment extends Fragment implements View.OnClickListener
             TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
                 @Override
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                    String stringHour , stringMin;
                     ((ManageSchedule) getActivity()).addTime(hourOfDay+" : "+minute, hourOfDay, minute);
-                    timeButton.setText(hourOfDay + " : " + minute);
+                    if (hourOfDay < 10)
+                        stringHour = "0"+String.valueOf(hourOfDay);
+                    else
+                        stringHour = String.valueOf(hourOfDay);
+                    if (minute < 10)
+                        stringMin = "0"+String.valueOf(minute);
+                    else
+                        stringMin = String.valueOf(minute);
+                    timeButton.setText(stringHour + " : " + stringMin);
+                    ((ManageSchedule) getActivity()).makeAlarm(hourOfDay, minute);
                 }
             }, mHour, mMinute, false);
             timePickerDialog.setTitle("Eating Time");

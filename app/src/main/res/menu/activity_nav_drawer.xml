@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/tutorial"
+            android:icon="@drawable/tutorial"
+            android:title="@string/tutorial"/>
+        <item
+            android:id="@+id/foodListMenu"
+            android:icon="@drawable/foodlist_fix"
+            android:title="@string/foodList"/>
+        <item
+            android:id="@+id/settings"
+            android:icon="@drawable/setting"
+            android:title="@string/setting"/>
+    </group>
+
+</menu>
