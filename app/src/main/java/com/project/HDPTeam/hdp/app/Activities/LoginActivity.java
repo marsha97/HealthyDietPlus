@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.transition.Slide;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -21,6 +20,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.project.HDPTeam.hdp.app.OtherClass.url;
 import com.project.HDPTeam.hdp.app.R;
 import com.project.HDPTeam.hdp.app.networks.CheckConnection;
 import com.project.HDPTeam.hdp.app.networks.Singleton;
@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity{
 
         private Button loginButton, signupLink;
         private EditText mUname, mPassword;
-        private final String URL = "http://healthydietplus.esy.es/hdplusdb/login.php";
+        private final String URL = url.webUrl+"login.php";
         private StringRequest mStringRequest;
         private RequestQueue mRequestQueue;
         private ProgressBar mLoading;

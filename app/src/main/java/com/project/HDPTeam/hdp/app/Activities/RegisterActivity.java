@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -23,7 +24,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.project.HDPTeam.hdp.app.OtherClass.url;
 import com.project.HDPTeam.hdp.app.R;
 import com.project.HDPTeam.hdp.app.networks.CheckConnection;
 import com.project.HDPTeam.hdp.app.networks.Singleton;
@@ -53,7 +54,7 @@ public class RegisterActivity extends AppCompatActivity implements
     //EditText date ; //== date;
     private EditText mDisplay;
     private RequestQueue mRequestQueue;
-    private final String URL = "http://healthydietplus.esy.es/hdplusdb/register.php";
+    private final String URL = url.webUrl + "register.php";
     private StringRequest mStringRequest;
     private Button signupBtn;
     private Intro intro;
@@ -130,7 +131,7 @@ public class RegisterActivity extends AppCompatActivity implements
                         mParameters.put("rePass", mRetype.getText().toString());
                         mParameters.put("displayName", mDisplay.getText().toString());
                         mParameters.put("day", String.valueOf(mDay2));
-                        mParameters.put("month", String.valueOf(mMonth2));
+                        mParameters.put("month", String.valueOf(mMonth2 + 1));
                         mParameters.put("year", String.valueOf(mYear2));
                         mParameters.put("gender", mGender);
 
@@ -141,6 +142,14 @@ public class RegisterActivity extends AppCompatActivity implements
                 mRequestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<String>() {
                     @Override
                     public void onRequestFinished(Request<String> request){
+                        Log.d("loginPage", mUname.getText().toString());
+                        Log.d("loginPage", mPswd.getText().toString());
+                        Log.d("loginPage", mRetype.getText().toString());
+                        Log.d("loginPage", mDisplay.getText().toString());
+                        Log.d("loginPage", String.valueOf(mDay2));
+                        Log.d("loginPage", String.valueOf(mMonth2));
+                        Log.d("loginPage", String.valueOf(mYear2));
+                        Log.d("loginPage", mGender);
                         progressDialog.dismiss();
                     }
                 });

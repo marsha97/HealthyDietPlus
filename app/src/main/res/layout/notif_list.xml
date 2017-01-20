@@ -2,10 +2,11 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+               >
 
     <LinearLayout
-        android:id="@+id/notifInfo"
+        android:id="@+id/eating_pic"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:weightSum="50"
@@ -14,10 +15,17 @@
         android:layout_alignParentStart="true">
 
         <LinearLayout
-            android:id="@+id/pic_and_text"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="45"
+            android:layout_height="10dp"
+            android:weightSum="17"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
             android:weightSum="15"
             android:orientation="horizontal"
             android:layout_centerInParent="true">
@@ -31,30 +39,153 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:layout_gravity="center_vertical"
-                android:id="@+id/burned_calories"/>
+                android:src="@drawable/burned_calories" />
             <Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
 
             <TextView
-                android:id="@+id/eating_editText"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 android:text="Wow! You have already burned calories needed today, keep up the good work!"
+                android:textSize="15sp"
                 android:layout_weight="9" />
         </LinearLayout>
-        <TextView
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="5"
-            android:paddingRight="5dp"
-            android:text="Test"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"/>
+            android:layout_height="20dp"
+            android:weightSum="17"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:weightSum="15"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true">
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:src="@drawable/slow"/>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:layout_height="match_parent"
+                android:text="Argh! You're behind the schedule, don't forget to have an exercise!"
+                android:textSize="15sp"
+                android:layout_weight="9" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:weightSum="17"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:weightSum="15"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true">
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:src="@drawable/time_eat"/>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="It's the time for you to fill your belly"
+                android:textSize="15sp"
+                android:layout_weight="9" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:weightSum="17"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:weightSum="15"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true">
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:src="@drawable/warning" />
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="You need to eat! Its already this late or else something bad might happen"
+                android:textSize="15sp"
+                android:layout_weight="9" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/height_eating"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:weightSum="17"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true">
+
+        </LinearLayout>
 
     </LinearLayout>
 </RelativeLayout>

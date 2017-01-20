@@ -4,6 +4,7 @@ package com.project.HDPTeam.hdp.app.fragments;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -16,7 +17,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -25,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.project.HDPTeam.hdp.app.Activities.HealthyDietPlus;
 import com.project.HDPTeam.hdp.app.OtherClass.titleBar;
+import com.project.HDPTeam.hdp.app.OtherClass.url;
 import com.project.HDPTeam.hdp.app.R;
 import com.project.HDPTeam.hdp.app.networks.CheckConnection;
 import com.project.HDPTeam.hdp.app.networks.Singleton;
@@ -40,7 +41,7 @@ import org.json.JSONObject;
  * create an instance of this fragment.
  */
 public class FragmentDetailFood extends Fragment implements AdapterView.OnItemSelectedListener{
-    private final String url = "http://healthydietplus.esy.es/hdplusdb/foodDescription.php";
+    private final String mUrl = url.webUrl + "foodDescription.php";
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "foodID_FragmentDetailFood";
@@ -263,7 +264,7 @@ public class FragmentDetailFood extends Fragment implements AdapterView.OnItemSe
         return Math.round(nutrition/changetoDouble(amount)*customAmount*100.0)/100.0;
     }
     public String getUrl (String query){
-        return url + "?food_id=" + query;
+        return mUrl + "?food_id=" + query;
     }
 
     @Override
@@ -313,8 +314,6 @@ public class FragmentDetailFood extends Fragment implements AdapterView.OnItemSe
                 @Override
                 public void onClick(View v) {
                     double newCal = currentCal + changetoDouble(foodNutrition[0]);
-                    Toast.makeText(getContext(),"currentCal = " + String.valueOf(currentCal), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getContext(),"newCal = " + String.valueOf(newCal), Toast.LENGTH_SHORT).show();
                     if (maxCal < newCal){
                         AlertFragment.createDialog("Please eat less !!", "Too Much Calories", getContext());
                     }

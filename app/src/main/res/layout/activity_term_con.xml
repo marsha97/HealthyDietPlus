@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/activity_term_and_condition"
+                android:layout_width="match_parent"
+                android:fillViewport="true"
+                android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:padding="15dp"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="29"
+            android:orientation="vertical">
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/judul_term_textView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:text="@string/Term_and_condition_page"
+                android:textSize="25sp"
+                android:layout_gravity="center"
+                android:textAlignment="center"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:text="@string/lastupdate"
+                android:id="@+id/last_update_textView"
+                android:textSize="12sp"
+                android:textColor="@color/textColor" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="6"
+                android:text="@string/paragraf1"
+                android:id="@+id/paragraf1_extView"
+                android:textSize="12sp"
+                android:textColor="@color/textColor" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:text="@string/paragraf2"
+                android:id="@+id/paragraf2_extView"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/textColor" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.3"
+                android:text="@string/purchase"
+                android:id="@+id/purchasesJudul_textView"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/textColor" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:text="@string/purchasesisi"
+                android:id="@+id/purchasesIsi_textView"
+                android:textSize="12sp"
+                android:textColor="@color/textColor" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.3"
+                android:text="@string/subscriptions"
+                android:id="@+id/subbcriptionsJudul_textView"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/textColor"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:text="@string/subscriptionsisi"
+                android:id="@+id/subcriptionsIsi_textView"
+                android:textSize="12sp"
+                android:textColor="@color/textColor" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.3"
+                android:text="@string/content"
+                android:id="@+id/contentJudul_textView"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/textColor"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:text="@string/contentisi1"
+                android:id="@+id/contentIsi1_textView"
+                android:textSize="12sp"
+                android:textColor="@color/textColor" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:text="@string/contentisi2"
+                android:id="@+id/contentIsi2_textView"
+                android:textSize="12sp"
+                android:textColor="@color/textColor" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:text="@string/contentisi3"
+                android:id="@+id/contentIsi3_textView"
+                android:textSize="12sp"
+                android:textColor="@color/textColor" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.3"
+                android:text="@string/changes"
+                android:id="@+id/changesJudul_textView"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/textColor"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:text="@string/changesisi"
+                android:id="@+id/changesIsi_textView"
+                android:textSize="12sp"
+                android:textColor="@color/textColor" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.3"
+                android:text="@string/contact_us"
+                android:id="@+id/contactusJudul_textView"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/textColor"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:text="@string/contact_usisi"
+                android:id="@+id/contactusIsi_textView"
+                android:textSize="12sp"
+                android:textColor="@color/textColor" />
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>

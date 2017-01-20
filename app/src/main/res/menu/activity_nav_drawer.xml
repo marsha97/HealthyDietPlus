@@ -8,8 +8,12 @@
             android:title="@string/tutorial"/>
         <item
             android:id="@+id/foodListMenu"
-            android:icon="@drawable/foodlist_fix"
+            android:icon="@drawable/food_list01"
             android:title="@string/foodList"/>
+        <item
+            android:id="@+id/notification"
+            android:icon="@drawable/notification"
+            android:title="@string/notification"/>
         <item
             android:id="@+id/settings"
             android:icon="@drawable/setting"

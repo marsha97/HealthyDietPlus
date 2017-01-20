@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import  java.util.Calendar;
@@ -64,7 +63,6 @@ public class EatingMenuFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Toast.makeText(getContext(), "onCreate", Toast.LENGTH_SHORT).show();
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             MenuTime = getArguments().getString(MANAGE_SCHEDULE_CHOSEN_MENU);
@@ -73,7 +71,6 @@ public class EatingMenuFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onSaveInstanceState (Bundle outState){
-        Toast.makeText(getContext(), "onSaveInstanceState", Toast.LENGTH_SHORT).show();
 
         outState.putString(MANAGE_SCHEDULE_CHOSEN_MENU, MenuTime);
         outState.putInt(MANAGE_SCHEDULE_MENU_SIZE, menuSize);
@@ -85,8 +82,6 @@ public class EatingMenuFragment extends Fragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Toast.makeText(getContext(), "onCreateView "+ MenuTime, Toast.LENGTH_SHORT).show();
-
         // Inflate the layout for this fragment
         menuSize = ((ManageSchedule) getActivity()).getSize();
         View view = inflater.inflate(R.layout.fragment_eating_menu, container, false);

@@ -9,6 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/colorWhite"
     tools:context="com.project.HDPTeam.hdp.app.Activities.MainMenu"
     tools:showIn="@layout/main_menu_nav_drawer">
 
@@ -41,7 +42,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
-            android:src="@drawable/update_fix"
+            android:src="@drawable/update2"
             android:id="@+id/update_button" />
 
         <Space
@@ -53,7 +54,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
-            android:src="@drawable/last_fix"
+            android:src="@drawable/last"
             android:id="@+id/last_button" />
 
         <Space
@@ -66,7 +67,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
-            android:src="@drawable/eating_schedule"
+            android:src="@drawable/eating_schedule2"
             android:id="@+id/schedule_button"/>
     </LinearLayout>
 

@@ -30,7 +30,7 @@
             android:layout_height="0dp"
             android:layout_weight="15"
             android:contentDescription="@string/last_describtion"
-            android:src="@drawable/last_fix"/>
+            android:src="@drawable/last"/>
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"

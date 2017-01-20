@@ -4,11 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 
-import com.project.HDPTeam.hdp.app.Activities.NotificationActivity;
-import com.project.HDPTeam.hdp.app.R;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by kali on 1/17/17.

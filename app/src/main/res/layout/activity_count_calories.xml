@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="10"
-            android:src="@drawable/logo1"/>
+            android:src="@drawable/logo_big"/>
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -82,30 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            android:layout_weight="2">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <TextView
-                    android:id="@+id/burnedCal_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Burned Calories/day : "/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text=""
-                    android:layout_alignParentTop="true"
-                    android:layout_toEndOf="@+id/burnedCal_textView"
-                    android:id="@+id/idealBurnedResult_textView">
-                </TextView>
-            </RelativeLayout>
-        </LinearLayout>
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -21,8 +22,10 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.project.HDPTeam.hdp.app.OtherClass.url;
 import com.project.HDPTeam.hdp.app.R;
 import com.project.HDPTeam.hdp.app.networks.CheckConnection;
 import com.project.HDPTeam.hdp.app.networks.Singleton;
@@ -38,13 +41,17 @@ public class UpdatePhysic extends AppCompatActivity implements AdapterView.OnIte
     private Spinner mSpinner;
     private Button mUpdate;
     private RelativeLayout mLoadingCont;
-    private final String URL = "http://healthydietplus.esy.es/hdplusdb/physic.php"; //baru bisa local,yang register juga
+    private final String URL = url.webUrl+"physic.php"; //baru bisa local,yang register juga
     private StringRequest mStringRequest;
+    private JsonObjectRequest requesotObj;
     private RequestQueue mRequestQueue;
     private EditText mWeight, mHeight;
+    private String result = "UNKNOWN";
     private String mUname, mIntensity;
     private double mIdealWeight, mIdealCal;
     private  int pos;
+    private JSONObject mJsonObj;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,24 +81,32 @@ public class UpdatePhysic extends AppCompatActivity implements AdapterView.OnIte
             mStringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
+                    Log.d("physicData", response);
                     try {
-                        JSONObject mJsonObj = new JSONObject(response);
+                        mJsonObj = new JSONObject(response);
                         if(mJsonObj.names().get(0).equals("errorEmpty")){
+                            result = mJsonObj.getString("errorEmpty");
+                            Toast.makeText(UpdatePhysic.this, "errorEmpty", Toast.LENGTH_SHORT).show();
                             Toast.makeText(getApplicationContext(), mJsonObj.getString("errorEmpty"),Toast.LENGTH_SHORT).show();
                         }
                         else if(mJsonObj.names().get(0).equals("success")){
+                            result = mJsonObj.getString("success");
                             Intent intent = new Intent(UpdatePhysic.this, CountCaloriesActivity.class);
                             intent.putExtra("username", mUname);
                             startActivity(intent);
                             finish();
                         }
                     } catch (JSONException e) {
+                        Log.d("physicData", mUname);
+                        Log.d("physicData", String.valueOf(mWeight.getText()));
+                        Log.d("physicData", String.valueOf(mHeight.getText()));
                         e.printStackTrace();
                     }
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
+                    Log.d("physicData", "onErrorResponse");
                     volleyError.printStackTrace();
                     //Toast.makeText(getApplicationContext(),"Network error, please check your connection", Toast.LENGTH_SHORT).show();
                     new CheckConnection().createInternetAccessDialog(UpdatePhysic.this);
@@ -100,6 +115,7 @@ public class UpdatePhysic extends AppCompatActivity implements AdapterView.OnIte
             }){
                 @Override
                 protected Map<String,String> getParams() throws AuthFailureError {
+                    Log.d("physicData", "getParams");
                     Map<String,String> mParameters = new HashMap<>();
                     mParameters.put("username", mUname);
                     mParameters.put("weight", String.valueOf(mWeight.getText()));
@@ -113,6 +129,9 @@ public class UpdatePhysic extends AppCompatActivity implements AdapterView.OnIte
 
                 @Override
                 public void onRequestFinished(Request<String> request){
+                    Log.d("physicData", result);
+                    Log.d("physicData",  "requestFinish");
+                    Log.d("physicData",String.valueOf(pos) );
                     progressDialog.dismiss();
                 }
             });

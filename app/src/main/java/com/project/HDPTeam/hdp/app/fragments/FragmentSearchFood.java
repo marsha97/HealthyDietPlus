@@ -3,14 +3,11 @@ package com.project.HDPTeam.hdp.app.fragments;
 
 import android.app.ProgressDialog;
 
-import com.project.HDPTeam.hdp.app.Activities.FoodSearchActivity;
 import com.project.HDPTeam.hdp.app.OtherClass.DividerItemDecoration;
 import android.os.Bundle;
-//import android.os.Parcelable;
-//import android.support.annotation.Nullable;
+
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -23,7 +20,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-//import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -33,6 +29,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.project.HDPTeam.hdp.app.Activities.HealthyDietPlus;
 import com.project.HDPTeam.hdp.app.OtherClass.EndlessScroll;
 import com.project.HDPTeam.hdp.app.OtherClass.titleBar;
+import com.project.HDPTeam.hdp.app.OtherClass.url;
 import com.project.HDPTeam.hdp.app.R;
 import com.project.HDPTeam.hdp.app.model.foodDatas;
 import com.project.HDPTeam.hdp.app.networks.CheckConnection;
@@ -63,7 +60,7 @@ public class FragmentSearchFood extends Fragment{
     private String foodName;
     private int foodPage;
 
-    private final String url = "http://healthydietplus.esy.es/hdplusdb/foodSearch.php";
+    private final String mUrl = url.webUrl + "foodSearch.php";
 
     private ArrayList<foodData> listFoodData = new ArrayList<>();
     private long mId;
@@ -186,7 +183,7 @@ public class FragmentSearchFood extends Fragment{
     }
 
     public String getUrl (String query, int offset){
-        return url + "?food_name=" + query + "&offset=" + offset;
+        return mUrl + "?food_name=" + query + "&offset=" + offset;
     }
 
     @Override

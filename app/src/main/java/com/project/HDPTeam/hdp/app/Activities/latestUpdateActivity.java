@@ -13,7 +13,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.project.HDPTeam.hdp.app.OtherClass.url;
 import com.project.HDPTeam.hdp.app.R;
 import com.project.HDPTeam.hdp.app.fragments.lastUpdateFragment;
 import com.project.HDPTeam.hdp.app.networks.CheckConnection;
@@ -40,7 +40,7 @@ public class latestUpdateActivity extends FragmentActivity {
         mUname = sharedPreferences.getString("USERNAME", "N/A");
         intensities = getResources().getStringArray(R.array.workout_intensity);
 
-        String showURL = "http://healthydietplus.esy.es/hdplusdb/showLatest.php?username="+mUname;
+        String showURL = url.webUrl+"showLatest.php?username="+mUname;
 
         mRequestQueue = Singleton.getIsntance().getRequestQueue();
         final ProgressDialog progressDialog = ProgressDialog.show(latestUpdateActivity.this, "Loading Content", "Please Wait...", true, false);

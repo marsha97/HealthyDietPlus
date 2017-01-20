@@ -4,9 +4,11 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -17,7 +19,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.project.HDPTeam.hdp.app.OtherClass.titleBar;
 import com.project.HDPTeam.hdp.app.R;
-import com.project.HDPTeam.hdp.app.Receivers.AlarmReceiver;
 import com.project.HDPTeam.hdp.app.Services.alarmReceiver;
 import com.project.HDPTeam.hdp.app.fragments.AlertFragment;
 import com.project.HDPTeam.hdp.app.fragments.EatingMenuFragment;
@@ -44,6 +45,7 @@ public class ManageSchedule extends SingleFragmentActivity implements Schedule.F
     private int maxCalories;
     private double currentCal;
     private String choosenMenuTime;
+    private boolean jsonIsNull;
 
     @Override
     protected Fragment createFragment() {
@@ -54,7 +56,6 @@ public class ManageSchedule extends SingleFragmentActivity implements Schedule.F
         if (maxCalories == 0) {
             getFromDatabase();
         }
-        Toast.makeText(ManageSchedule.this, "currentCal : " + String.valueOf(currentCal), Toast.LENGTH_SHORT).show();
         Fragment scheduleFragment = Schedule.newInstance(maxCalories);
         return scheduleFragment;
     }
@@ -85,7 +86,7 @@ public class ManageSchedule extends SingleFragmentActivity implements Schedule.F
 
     public void getFromDatabase() {
         String username;
-        final String[] calories = new String[1];
+        final String[] calories = {"0"};
         SharedPreferences sharedPreferences = getSharedPreferences("LogIn", Context.MODE_PRIVATE);
         username = sharedPreferences.getString("USERNAME", "N/A");
         final String url = "http://healthydietplus.esy.es/hdplusdb/getCalories.php?username=" + username;
@@ -95,6 +96,7 @@ public class ManageSchedule extends SingleFragmentActivity implements Schedule.F
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                Log.d("manageSchedule", response.toString());
                 try {
                     calories[0] = response.getString("lastCal");
                 } catch (JSONException e) {
@@ -104,29 +106,51 @@ public class ManageSchedule extends SingleFragmentActivity implements Schedule.F
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Log.d("manage", "onError");
                 error.printStackTrace();
-                new CheckConnection().createInternetAccessDialog(ManageSchedule.this);
+                maxCalories = 0;
+                jsonIsNull = true;
+                Log.d("nullJSON", String.valueOf(jsonIsNull));
+                //new CheckConnection().createInternetAccessDialog(ManageSchedule.this);
             }
         });
         mRequestQueue.add(objectRequest);
         mRequestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<JSONObject>() {
             @Override
             public void onRequestFinished(Request<JSONObject> request) {
+                Log.d("manage", "onFinish");
                 progressDialog.dismiss();
-                maxCalories = Integer.parseInt(calories[0]);
-                if (maxCalories == 0) {
-                    AlertFragment.createDialog("Please update your data", "It's Still Zero", ManageSchedule.this);
-                } else {
+                if (!jsonIsNull) {
+                    maxCalories = Integer.parseInt(calories[0]);
                     SharedPreferences pref = getSharedPreferences("PhysicData", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
                     editor.putInt("maxCalories", maxCalories);
                     editor.commit();
                     AlertFragment.createDialog("Please restart the application", "Get the Last Data", ManageSchedule.this);
                 }
-                Toast.makeText(ManageSchedule.this, "maxCal : " + String.valueOf(maxCalories), Toast.LENGTH_SHORT).show();
-                Toast.makeText(ManageSchedule.this, "calories[0] : " + calories[0], Toast.LENGTH_SHORT).show();
+                else {
+                    if (!isFinishing())
+                        makeDialog();
+                }
             }
         });
+    }
+
+    private void makeDialog() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(ManageSchedule.this);
+        Log.d("manage", "makeDialog");
+        alert.setTitle("It's Zero!")
+                .setMessage("Please update your data first")
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(ManageSchedule.this, UpdatePhysic.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+        alert.show();
     }
 
     @Override
@@ -138,7 +162,6 @@ public class ManageSchedule extends SingleFragmentActivity implements Schedule.F
     public void addToPreferences(String foodName, double calories, double totalCal) {
         currentCal = calories + currentCal;
         Log.d("addToPreferences", "totalCal = " + String.valueOf(totalCal));
-        Toast.makeText(HealthyDietPlus.getContext(), "totalCal = " + String.valueOf(totalCal), Toast.LENGTH_SHORT).show();
         SharedPreferences sharedPreferences = getSharedPreferences(choosenMenuTime, Context.MODE_PRIVATE);
         SharedPreferences caloriesPreferences = getSharedPreferences("caloriesManagement", Context.MODE_PRIVATE);
 
