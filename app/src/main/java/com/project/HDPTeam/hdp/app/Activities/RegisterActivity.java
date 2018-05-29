@@ -62,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity implements
     private Button mGenderBtn;
     private int mYear, mMonth, mDay;
     private String mGender = "";
-    private String mDay2, mMonth2, mYear2; //tanggal yang diinputkan user
+    private String mDay2, mMonth2, mYear2,status; //tanggal yang diinputkan user
     private ProgressBar mLoading;
     private RelativeLayout mLoadingCont;
 
@@ -90,19 +90,26 @@ public class RegisterActivity extends AppCompatActivity implements
                 mStringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        Log.i("registerInfo", response.toString());
+                        //Toast.makeText(RegisterActivity.this, response.toString(),Toast.LENGTH_LONG).show();
                         try {
                             JSONObject mJsonObj = new JSONObject(response);
+                            Log.i("registerInfo", String.valueOf(mJsonObj.names().get(0)));
                             if(mJsonObj.names().get(0).equals("errorEmpty")){
-                                Toast.makeText(getApplicationContext(), mJsonObj.getString("errorEmpty"),Toast.LENGTH_SHORT).show();
+                                status = mJsonObj.getString("errorEmpty");
+                                Toast.makeText(getApplicationContext(), status,Toast.LENGTH_SHORT).show();
                             }
                             else if (mJsonObj.names().get(0).equals("errorPass")) {
-                                Toast.makeText(getApplicationContext(), mJsonObj.getString("errorPass"), Toast.LENGTH_SHORT).show();
+                                //status = mJsonObj.getString("errorPass");
+                                Toast.makeText(RegisterActivity.this, mJsonObj.getString("errorPass"), Toast.LENGTH_SHORT).show();
                             }
                             else if(mJsonObj.names().get(0).equals("errorUsername")){
-                                Toast.makeText(getApplicationContext(), mJsonObj.getString("errorUsername"), Toast.LENGTH_SHORT).show();
+                                //status = mJsonObj.getString("errorUsername");
+                                Toast.makeText(RegisterActivity.this, mJsonObj.getString("errorUsername"), Toast.LENGTH_SHORT).show();
                             }
                             else if(mJsonObj.names().get(0).equals("errorDisplayName")){
-                                Toast.makeText(getApplicationContext(), mJsonObj.getString("errorDisplayName"), Toast.LENGTH_SHORT).show();
+                                //status = mJsonObj.getString("errorDisplayName");
+                                Toast.makeText(RegisterActivity.this, mJsonObj.getString("errorDisplayName"), Toast.LENGTH_SHORT).show();
                             }
                             else if(mJsonObj.names().get(0).equals("success")){
                                 intro = new Intro(getApplicationContext());
@@ -119,6 +126,7 @@ public class RegisterActivity extends AppCompatActivity implements
                     public void onErrorResponse(VolleyError volleyError) {
                         progressDialog.dismiss();
                         volleyError.printStackTrace();
+                        Log.i("error", volleyError.getMessage());
                         //Toast.makeText(getApplicationContext(),"Network error, please check your connection", Toast.LENGTH_SHORT).show();
                         new CheckConnection().createInternetAccessDialog(RegisterActivity.this);
                     }
@@ -130,11 +138,13 @@ public class RegisterActivity extends AppCompatActivity implements
                         mParameters.put("password", mPswd.getText().toString());
                         mParameters.put("rePass", mRetype.getText().toString());
                         mParameters.put("displayName", mDisplay.getText().toString());
-                        mParameters.put("day", String.valueOf(mDay2));
-                        mParameters.put("month", String.valueOf(mMonth2 + 1));
-                        mParameters.put("year", String.valueOf(mYear2));
+                        if (mDay2 != null)
+                            mParameters.put("day", String.valueOf(mDay2));
+                        if (mMonth2 != null)
+                             mParameters.put("month", String.valueOf(mMonth2));
+                        if (mYear2 != null)
+                            mParameters.put("year", String.valueOf(mYear2));
                         mParameters.put("gender", mGender);
-
                         return mParameters;
                     }
                 };
@@ -142,14 +152,6 @@ public class RegisterActivity extends AppCompatActivity implements
                 mRequestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<String>() {
                     @Override
                     public void onRequestFinished(Request<String> request){
-                        Log.d("loginPage", mUname.getText().toString());
-                        Log.d("loginPage", mPswd.getText().toString());
-                        Log.d("loginPage", mRetype.getText().toString());
-                        Log.d("loginPage", mDisplay.getText().toString());
-                        Log.d("loginPage", String.valueOf(mDay2));
-                        Log.d("loginPage", String.valueOf(mMonth2));
-                        Log.d("loginPage", String.valueOf(mYear2));
-                        Log.d("loginPage", mGender);
                         progressDialog.dismiss();
                     }
                 });
@@ -169,11 +171,12 @@ public class RegisterActivity extends AppCompatActivity implements
             mYear = c.get(Calendar.YEAR);
             mMonth = c.get(Calendar.MONTH);
             mDay = c.get(Calendar.DAY_OF_MONTH);
+            Log.i ("register", "Month: " + String.valueOf(mMonth));
             DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                     mDay2 = String.valueOf(dayOfMonth);
-                    mMonth2 = String.valueOf(month);
+                    mMonth2 = String.valueOf(month+1);
                     mYear2 = String.valueOf(year);
                     mDateBtn.setText(dayOfMonth + "-" + (month+1) + "-" + year);
                 }
@@ -181,6 +184,7 @@ public class RegisterActivity extends AppCompatActivity implements
             datePickerDialog.getDatePicker().setMaxDate(c.getTimeInMillis());
             datePickerDialog.setTitle("Date of Birth");
             datePickerDialog.show();
+
         }
         else if(v == mGenderBtn){
             final AlertDialog genderDialog;

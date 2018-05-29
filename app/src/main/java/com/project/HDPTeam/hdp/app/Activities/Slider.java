@@ -66,7 +66,7 @@ public class Slider extends Activity {
                 R.layout.content_slider2,
                 R.layout.content_slider3,
                 R.layout.content_slider4,
-                R.layout.content_slider5
+                //R.layout.content_slider5
         };
 
         // adding bottom dots

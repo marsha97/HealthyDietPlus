@@ -126,7 +126,8 @@ public class ManageSchedule extends SingleFragmentActivity implements Schedule.F
                     SharedPreferences.Editor editor = pref.edit();
                     editor.putInt("maxCalories", maxCalories);
                     editor.commit();
-                    AlertFragment.createDialog("Please restart the application", "Get the Last Data", ManageSchedule.this);
+                    if (!isFinishing())
+                        AlertFragment.createDialog("Please restart the application", "Get the Last Data", ManageSchedule.this);
                 }
                 else {
                     if (!isFinishing())

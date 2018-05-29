@@ -125,7 +125,8 @@
     <string name="title_activity_nav_drawer">Navigation</string>
 
     <string name="action_settings">Settings</string>
-    <string name="about">An application made by a group of student that aims to help people lead a healthy diet.</string>
+    <string name="about"><text>An application made by a group of student that aims to help people lead a healthy diet.
+    Food API is provided by Fat Secret.</text></string>
     <string name="lastupdate">Last updated: Monday,January 2, 2017</string>
     <string name="paragraf1">Please read these Terms and Conditions carefully before using the ​HealthyDietPlus mobile​ application operated by Our Company.​
 Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms. These Terms apply to all visitors, users and others who access or use the Service.</string>

@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity{
                                     editor.putString("USERNAME", mUname.getText().toString());
                                     editor.putString("DISPLAY_NAME", display);
                                     editor.commit();
-                                    Toast.makeText(LoginActivity.this, display, Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(LoginActivity.this, display, Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(LoginActivity.this, Slider.class);
                                     startActivity(intent);
                                 }

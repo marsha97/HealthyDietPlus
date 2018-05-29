@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activities.SplashActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -31,11 +31,9 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Activities.RegisterActivity"
-            android:icon="@drawable/my_icon"
-            android:label="Register"
+        <activity android:name=".Activities.RegisterActivity"
             android:theme="@style/AppTheme.NoActionBar">
+
         </activity>
         <activity android:name=".Activities.Konfirmasi">
             <intent-filter>

@@ -41,11 +41,6 @@ public class NavDrawerActivity extends AppCompatActivity
             Intent intent = new Intent(this, SettingActivity.class);
             startActivity(intent);
         }
-        else if (id == R.id.notification) {
-            Intent intent = new Intent(this, ReminderActivity.class);
-            startActivity(intent);
-        }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
